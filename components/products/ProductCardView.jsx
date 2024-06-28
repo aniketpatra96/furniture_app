@@ -76,14 +76,13 @@ const ProductCardView = ({ item }) => {
             style={styles.image}
           />
         </View>
-        <View style={styles.details}>
-          <Text style={styles.title} numberOfLines={1}>{item.name}</Text>
-          <Text style={styles.supplier} numberOfLines={1}>{item.category}</Text>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.title} numberOfLines={2}>{item.name}</Text>
           <Text style={styles.price}>${item.price}</Text>
+          <TouchableOpacity style={styles.addBtn}>
+            <Ionicons name="add-circle" size={35} color={COLORS.primary} />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.addBtn}>
-          <Ionicons name="add-circle" size={35} color={COLORS.primary} />
-        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );

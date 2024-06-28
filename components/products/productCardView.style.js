@@ -3,9 +3,8 @@ import { COLORS, SIZES } from "../../constants";
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: '100%', // Ensures full width of the card within the ScrollView
-    paddingHorizontal: SIZES.medium, // Adjust padding as needed
-    marginBottom: SIZES.medium, // Adjust margin as needed
+    width: '100%',
+    marginBottom: SIZES.medium,
   },
   container: {
     flexDirection: 'row',
@@ -13,11 +12,11 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.medium,
     backgroundColor: COLORS.secondary,
     overflow: 'hidden',
-    marginBottom: SIZES.medium, // Adjust margin as needed
+    height: 200, // Adjust height as needed for medium size
   },
   imageContainer: {
     width: 120,
-    height: 120,
+    height: '100%',
     borderRadius: SIZES.small,
     overflow: 'hidden',
     backgroundColor: COLORS.gray2,
@@ -27,31 +26,28 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
-  details: {
+  detailsContainer: {
     flex: 1,
     padding: SIZES.medium,
+    justifyContent: 'space-between',
   },
   title: {
     fontFamily: 'bold',
-    fontSize: SIZES.large,
-    marginBottom: 2,
-  },
-  supplier: {
-    fontFamily: 'regular',
-    fontSize: SIZES.small,
-    color: COLORS.gray,
-    marginBottom: 2,
+    fontSize: SIZES.medium,
+    marginBottom: SIZES.small,
   },
   price: {
     fontFamily: 'bold',
     fontSize: SIZES.medium,
+    color: COLORS.primary,
   },
   addBtn: {
     position: 'absolute',
-    bottom: SIZES.xSmall,
-    right: SIZES.xSmall,
+    bottom: SIZES.small,
+    right: SIZES.small,
   },
 });
+
 
 export default styles;
 
