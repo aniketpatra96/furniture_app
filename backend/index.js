@@ -1,0 +1,14 @@
+const express = require("express");
+const app = express();
+require("dotenv").config();
+const PORT = process.env.PORT || 5000;
+const dbConnect = require("./db/dbConnect");
+const ProductsRouter = require("./routes/products.routes");
+const cors = require("cors");
+app.get("/", (req, res) => res.send("Furniture World!"));
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/api/products", ProductsRouter);
+dbConnect();
+app.listen(PORT, () => console.log(`Server is listening on port ${PORT}!`));
