@@ -106,3 +106,5 @@ const ProductDetails = ({ navigation }) => {
 };
 
 export default ProductDetails;
+
+

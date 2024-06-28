@@ -1,118 +1,59 @@
-// import { StyleSheet } from 'react-native'
-// import { COLORS, SIZES } from "../../constants";
-
-// const styles = StyleSheet.create({
-//     container:{
-//         width: 182,
-//         height: 240,
-//         marginTop: 5, 
-//         marginBottom: 150,
-//         borderRadius: SIZES.medium,
-//         backgroundColor: COLORS.secondary
-//     },
-//     imageContainer:{
-//         flex:1,
-//         width: 170,
-//         marginLeft: SIZES.small/2,
-//         marginTop: SIZES.small/2,
-//         borderRadius: SIZES.small,
-//         overflow: "hidden",
-//         backgroundColor: COLORS.gray2
-//     },
-//     image:{
-//         aspectRatio: 1,
-//         resizeMode: "cover"
-//     }, 
-//     details:{
-//         padding: SIZES.small
-//     },
-//     title:{
-//         fontFamily:"bold",
-//         fontSize:SIZES.large,
-//         marginBottom: 2
-//     },
-//     supplier:{
-//         fontFamily:"regular",
-//         fontSize:SIZES.small,
-//         color: COLORS.gray
-//     },
-//     price:{
-//         fontFamily:"bold",
-//         fontSize:SIZES.medium,
-//     },
-//     addBtn:{
-//         position:"absolute",
-//         bottom:SIZES.xSmall,
-//         right:SIZES.xSmall
-//     }
-   
-// })
-
-// export default styles;
-
-
-
-
-import { StyleSheet } from 'react-native';
-import { COLORS, SIZES } from '../../constants';
+import { StyleSheet } from 'react-native'
+import { COLORS, SIZES } from "../../constants";
 
 const styles = StyleSheet.create({
-  touchable: {
-    marginBottom: SIZES.medium,
-    marginTop: SIZES.medium,
+  cardContainer: {
+    width: '100%', // Ensures full width of the card within the ScrollView
+    paddingHorizontal: SIZES.medium, // Adjust padding as needed
+    marginBottom: SIZES.medium, // Adjust margin as needed
   },
   container: {
-    width: '100%',
-    height: 280,
+    flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: SIZES.medium,
-    backgroundColor: COLORS.lightGray,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    backgroundColor: COLORS.secondary,
+    overflow: 'hidden',
+    marginBottom: SIZES.medium, // Adjust margin as needed
   },
   imageContainer: {
-    width: '100%',
-    height: 180,
-    borderTopLeftRadius: SIZES.medium,
-    borderTopRightRadius: SIZES.medium,
+    width: 120,
+    height: 120,
+    borderRadius: SIZES.small,
     overflow: 'hidden',
-    backgroundColor: COLORS.gray,
+    backgroundColor: COLORS.gray2,
   },
   image: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
     resizeMode: 'cover',
   },
   details: {
-    padding: SIZES.small,
-    backgroundColor: COLORS.white,
-    borderBottomLeftRadius: SIZES.medium,
-    borderBottomRightRadius: SIZES.medium,
+    flex: 1,
+    padding: SIZES.medium,
   },
   title: {
-    fontFamily: 'Roboto-Bold',
-    fontSize: SIZES.body2,
-    marginBottom: SIZES.base,
-    color: COLORS.black,
+    fontFamily: 'bold',
+    fontSize: SIZES.large,
+    marginBottom: 2,
   },
   supplier: {
-    fontFamily: 'Roboto-Regular',
-    fontSize: SIZES.body3,
+    fontFamily: 'regular',
+    fontSize: SIZES.small,
     color: COLORS.gray,
-    marginBottom: SIZES.base / 2,
+    marginBottom: 2,
   },
   price: {
-    fontFamily: 'Roboto-Bold',
-    fontSize: SIZES.body3,
-    color: COLORS.primary,
-    marginTop: SIZES.base / 2,
+    fontFamily: 'bold',
+    fontSize: SIZES.medium,
   },
   addBtn: {
     position: 'absolute',
-    bottom: SIZES.base,
-    right: SIZES.base,
+    bottom: SIZES.xSmall,
+    right: SIZES.xSmall,
   },
 });
 
 export default styles;
+
+
+
