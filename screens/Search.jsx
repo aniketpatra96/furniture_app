@@ -13,7 +13,8 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import ProductCardView from "../components/products/ProductCardView";
-import { ip } from "../ip";
+import { IP as ip } from "@env";
+
 export default function Search() {
   const navigation = useNavigation();
   const [search, setSearch] = useState("");

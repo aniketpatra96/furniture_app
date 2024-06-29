@@ -9,7 +9,8 @@ import {
   SafeAreaView,
 } from "react-native";
 import axios from "axios";
-import { ip } from "../ip";
+import { IP as ip } from "@env";
+
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");

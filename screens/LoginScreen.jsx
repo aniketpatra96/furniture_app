@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-native";
 import axios from "axios";
-import { ip } from "../ip";
+import { IP as ip } from "@env";
 import { userContext } from "../contexts/userContext";
 const LoginScreen = ({ navigation }) => {
   const { setUser, setUserLogin } = useContext(userContext);
@@ -24,6 +24,8 @@ const LoginScreen = ({ navigation }) => {
         setUserLogin(true);
         alert("You are Logged in successfully");
         setTimeout(() => navigation.navigate("Bottom Navigation"), 1500);
+        setEmail("");
+        setPassword("");
       } else {
         alert("Invalid Email or Password");
         return;
