@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -9,7 +9,9 @@ import {
 } from "react-native";
 import axios from "axios";
 import { ip } from "../ip";
+import { userContext } from "../contexts/userContext";
 const LoginScreen = ({ navigation }) => {
+  const { setUser, setUserLogin } = useContext(userContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = async () => {
@@ -17,8 +19,11 @@ const LoginScreen = ({ navigation }) => {
       const user = { email, password };
       const response = await axios.post(`http://${ip}:3000/user/login`, user);
       if (response.status === 200) {
+        const { _id, name, email } = response.data;
+        setUser({ _id, name, email, password });
+        setUserLogin(true);
         alert("You are Logged in successfully");
-        setTimeout(() => navigation.navigate("Bottom Navigation"), 1000);
+        setTimeout(() => navigation.navigate("Bottom Navigation"), 1500);
       } else {
         alert("Invalid Email or Password");
         return;
