@@ -137,3 +137,5 @@ const ProductCardView = ({ item }) => {
 };
 
 export default ProductCardView;
+
+
