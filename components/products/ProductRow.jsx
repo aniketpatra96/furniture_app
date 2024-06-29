@@ -32,14 +32,7 @@
 //   );
 // }
 
-
-
-import {
-  FlatList,
-  Text,
-  View,
-  ActivityIndicator,
-} from "react-native";
+import { FlatList, Text, View, ActivityIndicator } from "react-native";
 import React, { useState } from "react";
 import { COLORS, SIZES } from "../../constants";
 import ProductCardView from "./ProductCardView";
@@ -77,7 +70,7 @@ const ProductRow = () => {
 
   return (
     <FlatList
-    style={{marginBottom: 150}}
+      style={{ marginBottom: 150 }}
       data={paginatedData}
       keyExtractor={(item) => item._id}
       renderItem={({ item }) => (
@@ -94,7 +87,3 @@ const ProductRow = () => {
 };
 
 export default ProductRow;
-
-
-
-

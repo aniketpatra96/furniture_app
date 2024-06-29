@@ -1,13 +1,23 @@
-import { ScrollView, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
+import { Text, View, TouchableOpacity, FlatList } from "react-native";
 import styles from "./home.style";
 import { Welcome } from "../components";
 import Carousel from "../components/home/Carousels";
 import Headings from "../components/home/Headings";
 import ProductRow from "../components/products/ProductRow";
-export default function Home() {
+
+const Home = () => {
+  const data = [
+    { id: "welcome", component: <Welcome /> },
+    { id: "carousel", component: <Carousel /> },
+    { id: "headings", component: <Headings /> },
+    { id: "productRow", component: <ProductRow /> },
+  ];
+
+  const renderItem = ({ item }) => <View key={item.id}>{item.component}</View>;
+
   return (
     <SafeAreaView>
       <View style={styles.appBarWrapper}>
@@ -24,12 +34,13 @@ export default function Home() {
           </View>
         </View>
       </View>
-      <View>
-        <Welcome />
-        <Carousel />
-        <Headings />
-        <ProductRow />
-      </View>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
     </SafeAreaView>
   );
-}
+};
+
+export default Home;

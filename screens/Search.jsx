@@ -1,4 +1,10 @@
-import { View, TouchableOpacity, TextInput, FlatList } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  TextInput,
+  FlatList,
+  Keyboard,
+} from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./search.style";
@@ -28,7 +34,11 @@ export default function Search() {
     <SafeAreaView>
       <View style={styles.searchContainer}>
         <TouchableOpacity>
-          <Ionicons name="camera-outline" size={SIZES.xLarge} style={styles.searchIcon} />
+          <Ionicons
+            name="camera-outline"
+            size={SIZES.xLarge}
+            style={styles.searchIcon}
+          />
         </TouchableOpacity>
         <View style={styles.searchWrapper}>
           <TextInput
@@ -40,18 +50,20 @@ export default function Search() {
           />
         </View>
         <View>
-          <TouchableOpacity onPress={handleSearch} style={styles.searchBtn}>
-            <Feather 
-              name="search" 
-              size={24}
-              color={COLORS.offwhite}
-            />
+          <TouchableOpacity
+            onPress={() => {
+              handleSearch();
+              Keyboard.dismiss();
+            }}
+            style={styles.searchBtn}
+          >
+            <Feather name="search" size={24} color={COLORS.offwhite} />
           </TouchableOpacity>
         </View>
       </View>
-      
+
       <FlatList
-      style={styles.flatList}
+        style={styles.flatList}
         data={searchResults}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
