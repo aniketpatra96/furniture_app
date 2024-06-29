@@ -21,9 +21,6 @@ module.exports = {
   getAllProducts: async (req, res) => {
     try {
       const products = await ProductsModel.find().sort({ createdAt: -1 });
-      console.log('====================================');
-      console.log(products);
-      console.log('====================================');
       return res.status(200).json(products);
     } catch (error) {
       return res.status(500).json(error);
