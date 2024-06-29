@@ -11,7 +11,7 @@ import PoppinsLight from "./assets/fonts/Poppins-Light.ttf";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import BottomTabNavigation from "./navigation/BottomTabNavigation";
-import { Cart, ProductDetails} from "./screens";
+import { Cart, ProductDetails, WelcomeScreen, LoginScreen, RegisterScreen} from "./screens";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -33,7 +33,7 @@ export default function App() {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Bottom Navigation"
           component={BottomTabNavigation}
@@ -55,14 +55,27 @@ export default function App() {
             headerShown: false,
           }}
         />
-        {/** uncomment after adding product list */}
-        {/* <Stack.Screen
-          name="ProductList"
-          component={ProductList}
+        <Stack.Screen
+          name="Home"
+          component={WelcomeScreen}
           options={{
             headerShown: false,
           }}
-        /> */}
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

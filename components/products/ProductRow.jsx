@@ -77,6 +77,7 @@ const ProductRow = () => {
 
   return (
     <FlatList
+    style={{marginBottom: 150}}
       data={paginatedData}
       keyExtractor={(item) => item._id}
       renderItem={({ item }) => (

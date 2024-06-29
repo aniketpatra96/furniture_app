@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, TextInput, FlatList } from "react-native";
+import { View, TouchableOpacity, TextInput, FlatList } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./search.style";
@@ -7,7 +7,7 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import ProductCardView from "../components/products/ProductCardView";
-
+import { ip } from "../ip";
 export default function Search() {
   const navigation = useNavigation();
   const [search, setSearch] = useState("");
@@ -16,7 +16,7 @@ export default function Search() {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.29.146:3000/api/products/search/${search}`
+        `http://${ip}:3000/api/products/search/${search}`
       );
       setSearchResults(response.data); // Set search results in state
     } catch (error) {
@@ -51,6 +51,7 @@ export default function Search() {
       </View>
       
       <FlatList
+      style={styles.flatList}
         data={searchResults}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (

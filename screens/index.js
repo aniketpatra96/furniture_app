@@ -3,11 +3,17 @@ import Search from "./Search";
 import Profile from "./Profile";
 import Cart from "./Cart";
 import ProductDetails from "./ProductDetails";
+import RegisterScreen from "./RegisterScreen";
+import LoginScreen from "./LoginScreen";
+import WelcomeScreen from "./WelcomeScreen";
 
 export {
     Home,
     Search,
     Profile,
     Cart,
-    ProductDetails
+    ProductDetails,
+    RegisterScreen,
+    LoginScreen,
+    WelcomeScreen
 }
