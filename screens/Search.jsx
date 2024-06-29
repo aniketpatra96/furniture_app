@@ -1,23 +1,29 @@
-import { Text, View, TouchableOpacity, TextInput } from "react-native";
+import { Text, View, TouchableOpacity, TextInput, FlatList } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./search.style";
 import { COLORS, SIZES } from "../constants";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import useSearch from "../hook/useSearch";
-// import useFetch from "../hook/useFetch";
 import axios from "axios";
+import ProductCardView from "../components/products/ProductCardView";
+
 export default function Search() {
   const navigation = useNavigation();
-  const [search,setSearch] = useState("");
-  console.log(search);
-  const handleSearch = async() => {
-     const response = await axios.get(
-      `http://192.168.29.146:3000/api/products/search/${search}`
-    );
-    console.log(response.data);
-  }
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]); // State to hold search results
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(
+        `http://192.168.29.146:3000/api/products/search/${search}`
+      );
+      setSearchResults(response.data); // Set search results in state
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.searchContainer}>
@@ -29,20 +35,32 @@ export default function Search() {
             style={styles.searchInput}
             value={search}
             onPressIn={() => {}}
-            onChangeText={(item) => setSearch(item)}
+            onChangeText={(text) => setSearch(text)}
             placeholder="What are you looking for?"
           />
         </View>
         <View>
           <TouchableOpacity onPress={handleSearch} style={styles.searchBtn}>
             <Feather 
-            name="search" 
-            size={24}
+              name="search" 
+              size={24}
               color={COLORS.offwhite}
             />
           </TouchableOpacity>
         </View>
       </View>
+      
+      <FlatList
+        data={searchResults}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => (
+          <View style={styles.card}>
+            <ProductCardView item={item} />
+          </View>
+        )}
+        numColumns={1} // Set to 1 for one card per row
+        contentContainerStyle={styles.flatListContent}
+      />
     </SafeAreaView>
   );
 }
