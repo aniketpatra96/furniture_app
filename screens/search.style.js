@@ -36,6 +36,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  flatListContent: {},
+  flatList:{
+    marginBottom: 150
+  }
 });
 
 export default styles;

@@ -1,6 +1,7 @@
 import { View, Text } from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { ip } from "../ip";
 const useFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -9,10 +10,8 @@ const useFetch = () => {
     setIsLoading(true);
     setError(false);
     try {
-        //replace it with ur own ip
-      const response = await axios.get(
-        "http://192.168.29.146:3000/api/products/"
-      );
+      //replace it with ur own ip
+      const response = await axios.get(`http://${ip}:3000/api/products/`);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
