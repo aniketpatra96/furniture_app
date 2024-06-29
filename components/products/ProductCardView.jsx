@@ -98,10 +98,8 @@
 
 
 import {
-  ScrollView,
-  StyleSheet,
-  Image,
   View,
+  Image,
   TouchableOpacity,
   Text,
 } from "react-native";
@@ -113,11 +111,9 @@ import styles from "./productCardView.style";
 
 const ProductCardView = ({ item }) => {
   const navigation = useNavigation();
-
   return (
     <TouchableOpacity
-      style={styles.cardContainer}
-      onPress={() => navigation.navigate('ProductDetails', { item })}
+      onPress={() => navigation.navigate("ProductDetails", { item })}
     >
       <View style={styles.container}>
         <View style={styles.imageContainer}>
@@ -126,18 +122,18 @@ const ProductCardView = ({ item }) => {
             style={styles.image}
           />
         </View>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.title} numberOfLines={2}>{item.name}</Text>
+        <View style={styles.details}>
+          <Text style={styles.title} numberOfLines={1}>
+            {item.name}
+          </Text>
           <Text style={styles.price}>${item.price}</Text>
-          <TouchableOpacity style={styles.addBtn}>
-            <Ionicons name="add-circle" size={35} color={COLORS.primary} />
-          </TouchableOpacity>
         </View>
+        <TouchableOpacity style={styles.addBtn}>
+          <Ionicons name="add-circle" size={35} color={COLORS.primary} />
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
 };
-
-
 
 export default ProductCardView;

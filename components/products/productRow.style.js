@@ -2,10 +2,9 @@ import { StyleSheet } from 'react-native';
 import { COLORS, SIZES } from '../../constants';
 
 const styles = StyleSheet.create({
-  scrollViewContent: {
+  flatListContent: {
     paddingHorizontal: SIZES.medium,
-    paddingTop: SIZES.medium,
-    paddingBottom: SIZES.large, 
+    paddingBottom: SIZES.large,
   },
   loadingContainer: {
     flex: 1,
@@ -17,5 +16,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  card: {
+    flex: 1,
+    marginVertical: SIZES.small,
+  },
 });
-export default styles
+
+export default styles;

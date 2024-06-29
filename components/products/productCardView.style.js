@@ -1,24 +1,17 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
 import { COLORS, SIZES } from "../../constants";
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    width: '100%',
-    marginBottom: SIZES.medium,
-  },
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    width: '100%',
     borderRadius: SIZES.medium,
     backgroundColor: COLORS.secondary,
     overflow: 'hidden',
-    height: 200, // Adjust height as needed for medium size
+    marginBottom: SIZES.medium,
   },
   imageContainer: {
-    width: 120,
-    height: '100%',
-    borderRadius: SIZES.small,
-    overflow: 'hidden',
+    width: '100%',
+    height: 150, // Adjust based on your design
     backgroundColor: COLORS.gray2,
   },
   image: {
@@ -26,28 +19,24 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
-  detailsContainer: {
-    flex: 1,
-    padding: SIZES.medium,
-    justifyContent: 'space-between',
+  details: {
+    padding: SIZES.small,
   },
   title: {
     fontFamily: 'bold',
-    fontSize: SIZES.medium,
-    marginBottom: SIZES.small,
+    fontSize: SIZES.large,
+    marginBottom: 2,
   },
   price: {
     fontFamily: 'bold',
     fontSize: SIZES.medium,
-    color: COLORS.primary,
   },
   addBtn: {
     position: 'absolute',
-    bottom: SIZES.small,
-    right: SIZES.small,
+    bottom: SIZES.xSmall,
+    right: SIZES.xSmall,
   },
 });
-
 
 export default styles;
 
