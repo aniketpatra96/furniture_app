@@ -1,75 +1,73 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native'
-import React, {useState, useEffect} from 'react'
-import style from "./profile.style";
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { AntDesign, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { COLORS } from '../constants';
-import { AntDesign, MaterialCommunityIcons, SimpleLineIcons } from "@expo/vector-icons"
+import style from './profile.style';
 
-export default function Profile({navigation}) {
-  const [userData, setUserData]  = useState(null)
-  const [userLogin, setUserLogin] = useState(true)
+export default function Profile({ navigation }) {
+  const [userLogin, setUserLogin] = useState(true);
 
   const logout = () => {
     Alert.alert(
-      "Logout",
-      "Are you Sure you want to logout",
+      'Logout',
+      'Are you sure you want to logout?',
       [
         {
-          text: "Cancel", onPress: ()=> console.log("cancel Pressed")
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
         },
         {
-          text: "Continue", onPress: ()=> console.log("logout Pressed")
+          text: 'Continue',
+          onPress: () => {
+            console.log('Logout Pressed');
+            // Perform logout actions here
+          },
         },
-        
-
-      ]
-    )
-  }
+      ],
+      { cancelable: false }
+    );
+  };
 
   return (
-    <View style={style.container}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={style.container}>
-        <StatusBar backgroundColor = {COLORS.gray} />
-        <View style = {{width: '100%'}}>
-          <Image 
-              source = {require('../assets/images/space.jpg')}
-              style={style.cover}
+        <StatusBar backgroundColor={COLORS.gray} />
+        <View style={{ width: '100%' }}>
+          <Image
+            source={require('../assets/images/space.jpg')}
+            style={style.cover}
           />
         </View>
         <View style={style.profileContainer}>
-          <Image 
-               source={require('../assets/images/profile.jpeg')}
-               style={style.profile} 
+          <Image
+            source={require('../assets/images/profile.jpeg')}
+            style={style.profile}
           />
           <Text style={style.name}>
-            {userLogin === true ? "Bishal": "Please login into you account"}
+            {userLogin ? 'Bishal' : 'Please login into your account'}
           </Text>
-          {userLogin === false ? (
+          {userLogin ? (
+            <View style={style.loginBtn}>
+              <Text style={style.menuText}>abc@gmail.com</Text>
+            </View>
+          ) : (
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <View style={style.loginBtn}>
-                <Text style={style.menuText}>
-                  L O G I N
-                </Text>
+                <Text style={style.menuText}>L O G I N</Text>
               </View>
             </TouchableOpacity>
-          ):(
-            <View style={style.loginBtn}>
-                <Text style = {style.menuText}>abc@gmail.com</Text>
-               </View>
-          )
-          }
+          )}
 
-          {userLogin === false ? (
-            <View></View>
-          ): (
-            <View style={style.menuWrapper}>
-
+          {userLogin && (
+            <ScrollView style={style.menuWrapper}>
               <TouchableOpacity onPress={() => {}}>
                 <View style={style.menuItem(0.2)}>
-                  <MaterialCommunityIcons 
-                     name='heart-outline'
-                     color={COLORS.primary}
-                     size={24}
+                  <MaterialCommunityIcons
+                    name='heart-outline'
+                    color={COLORS.primary}
+                    size={24}
                   />
                   <Text style={style.menuText}>Favourites</Text>
                 </View>
@@ -77,10 +75,10 @@ export default function Profile({navigation}) {
 
               <TouchableOpacity onPress={() => {}}>
                 <View style={style.menuItem(0.2)}>
-                  <MaterialCommunityIcons 
-                     name='truck-delivery-outline'
-                     color={COLORS.primary}
-                     size={24}
+                  <MaterialCommunityIcons
+                    name='truck-delivery-outline'
+                    color={COLORS.primary}
+                    size={24}
                   />
                   <Text style={style.menuText}>Orders</Text>
                 </View>
@@ -89,9 +87,9 @@ export default function Profile({navigation}) {
               <TouchableOpacity onPress={() => {}}>
                 <View style={style.menuItem(0.2)}>
                   <SimpleLineIcons
-                     name='bag'
-                     color={COLORS.primary}
-                     size={24}
+                    name='bag'
+                    color={COLORS.primary}
+                    size={24}
                   />
                   <Text style={style.menuText}>Cart</Text>
                 </View>
@@ -99,10 +97,10 @@ export default function Profile({navigation}) {
 
               <TouchableOpacity onPress={() => {}}>
                 <View style={style.menuItem(0.2)}>
-                  <MaterialCommunityIcons 
-                     name='cached'
-                     color={COLORS.primary}
-                     size={24}
+                  <MaterialCommunityIcons
+                    name='cached'
+                    color={COLORS.primary}
+                    size={24}
                   />
                   <Text style={style.menuText}>Clear cache</Text>
                 </View>
@@ -110,10 +108,10 @@ export default function Profile({navigation}) {
 
               <TouchableOpacity onPress={() => {}}>
                 <View style={style.menuItem(0.2)}>
-                  <AntDesign 
-                     name='deleteuser'
-                     color={COLORS.primary}
-                     size={24}
+                  <AntDesign
+                    name='deleteuser'
+                    color={COLORS.primary}
+                    size={24}
                   />
                   <Text style={style.menuText}>Delete Account</Text>
                 </View>
@@ -121,21 +119,18 @@ export default function Profile({navigation}) {
 
               <TouchableOpacity onPress={() => logout()}>
                 <View style={style.menuItem(0.2)}>
-                  <AntDesign 
-                     name='logout'
-                     color={COLORS.primary}
-                     size={24}
+                  <AntDesign
+                    name='logout'
+                    color={COLORS.primary}
+                    size={24}
                   />
                   <Text style={style.menuText}>Logout</Text>
                 </View>
               </TouchableOpacity>
-
-            </View>
-          )
-          }
-          
+            </ScrollView>
+          )}
         </View>
       </View>
-    </View>
-  )
+    </ScrollView>
+  );
 }
