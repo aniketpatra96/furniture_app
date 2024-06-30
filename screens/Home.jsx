@@ -102,9 +102,9 @@ const Home = ({ route, navigation }) => {
           <Ionicons name="location-outline" size={24} />
           <Text style={styles.location}>Bhubaneswar, Odisha</Text>
           <View style={{ alignItems: "flex-end" }}>
-            {cart.cart.length > 0 && (
+            {cart.length > 0 && (
               <View style={styles.cartCount}>
-                <Text style={styles.cartNumber}>{cart.cart.length}</Text>
+                <Text style={styles.cartNumber}>{cart.length}</Text>
               </View>
             )}
             <TouchableOpacity onPress={() => navigation.navigate("Cart")}>

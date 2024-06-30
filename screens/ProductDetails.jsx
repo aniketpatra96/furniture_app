@@ -52,9 +52,9 @@ const ProductDetails = ({ navigation }) => {
       });
     }
   };
-  const context = useContext(cartContext);
+  const {addToCart, removeFromCart} = useContext(cartContext);
   const handleCart = () => {
-    addToCart(context.dispatch, item);
+    addToCart(item);
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
     paddingHorizontal: 20,
-    marginBottom: 100,
+    marginBottom: 120,
   },
   paginationText: {
     fontSize: 16,
