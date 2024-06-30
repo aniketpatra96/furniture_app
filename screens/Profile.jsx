@@ -85,6 +85,9 @@ export default function Profile({ navigation }) {
   const handleFavorite = () => {
     navigation.navigate("Favorite");
   };
+  const handleCart = () => {
+    navigation.navigate("Cart");
+  };
   return (
     <ScrollView
       style={{ marginBottom: 50 }}
@@ -142,7 +145,7 @@ export default function Profile({ navigation }) {
                 </View>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={handleCart}>
                 <View style={style.menuItem(0.2)}>
                   <SimpleLineIcons
                     name="bag"

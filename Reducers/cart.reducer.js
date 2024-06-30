@@ -9,11 +9,11 @@ export const CART_ACTIONS = Object.freeze({
 export const cartReducer = (state, action) => {
   switch (action.type) {
     case CART_ACTIONS.ADD_TO_CART: {
-      const productToAdd = action.payload; 
+      const productToAdd = action.payload;
       let { cart } = state;
       if (cart && Array.isArray(cart)) {
         const foundIndex = cart.findIndex(
-          (item) => item.id === productToAdd.id
+          (item) => item._id === productToAdd._id
         );
         if (foundIndex === -1) {
           cart.push(productToAdd);
@@ -26,10 +26,10 @@ export const cartReducer = (state, action) => {
       return { ...state, cart };
     }
     case CART_ACTIONS.REMOVE_FROM_CART: {
-      const id = action.payload; 
+      const id = action.payload;
       let { cart } = state;
       if (cart && Array.isArray(cart)) {
-        cart = cart.filter((item) => item.id !== id);
+        cart = cart.filter((item) => item._id !== id);
       }
       return { ...state, cart };
     }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
 import { Text, View, TouchableOpacity, FlatList } from "react-native";
@@ -7,7 +7,7 @@ import { Welcome } from "../components";
 import Carousel from "../components/home/Carousels";
 import Headings from "../components/home/Headings";
 import ProductRow from "../components/products/ProductRow";
-
+import { cartContext } from "../contexts/cartContext";
 const Home = () => {
   const data = [
     { id: "welcome", component: <Welcome /> },
@@ -17,7 +17,7 @@ const Home = () => {
   ];
 
   const renderItem = ({ item }) => <View key={item.id}>{item.component}</View>;
-
+  const { cart } = useContext(cartContext);
   return (
     <SafeAreaView>
       <View style={styles.appBarWrapper}>
@@ -25,9 +25,11 @@ const Home = () => {
           <Ionicons name="location-outline" size={24} />
           <Text style={styles.location}>Bhubaneswar, Odisha</Text>
           <View style={{ alignItems: "flex-end" }}>
-            <View style={styles.cartCount}>
-              <Text style={styles.cartNumber}>5</Text>
-            </View>
+            {cart.cart.length > 0 && (
+              <View style={styles.cartCount}>
+                <Text style={styles.cartNumber}>{cart.cart.length}</Text>
+              </View>
+            )}
             <TouchableOpacity>
               <Fontisto name="shopping-bag" size={24} />
             </TouchableOpacity>

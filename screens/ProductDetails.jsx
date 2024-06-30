@@ -19,6 +19,8 @@ import {
 import styles from "./productDetails.style";
 import { favoriteContext } from "../contexts/favoriteContext";
 import { FAVORITE_ACTIONS } from "../Reducers/favorite.reducer";
+import { cartContext } from "../contexts/cartContext";
+import addToCart from "../utils/handleCart";
 const ProductDetails = ({ navigation }) => {
   const { height, width } = useWindowDimensions();
   const route = useRoute();
@@ -49,6 +51,10 @@ const ProductDetails = ({ navigation }) => {
         payload: item,
       });
     }
+  };
+  const context = useContext(cartContext);
+  const handleCart = () => {
+    addToCart(context.dispatch, item);
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -126,7 +132,7 @@ const ProductDetails = ({ navigation }) => {
             <TouchableOpacity onPress={() => {}} style={styles.cartBtn}>
               <Text style={styles.cartTitle}>BUY NOW</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}} style={styles.addCart}>
+            <TouchableOpacity onPress={handleCart} style={styles.addCart}>
               <Fontisto
                 name="shopping-bag"
                 size={22}
