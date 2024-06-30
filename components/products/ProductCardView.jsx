@@ -129,11 +129,11 @@ const ProductCardView = ({ item, isCart = false }) => {
           style={styles.addBtn}
         >
           {isCart ? (
-            <MaterialCommunityIcons
-              name="minus-circle"
-              size={35}
-              color={COLORS.red}
-            />
+              <MaterialCommunityIcons
+                name="minus-circle"
+                size={35}
+                color={COLORS.red}
+              />
           ) : (
             <Ionicons name="add-circle" size={35} color={COLORS.primary} />
           )}
