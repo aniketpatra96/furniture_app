@@ -8,7 +8,7 @@ import Carousel from "../components/home/Carousels";
 import Headings from "../components/home/Headings";
 import ProductRow from "../components/products/ProductRow";
 import { cartContext } from "../contexts/cartContext";
-const Home = () => {
+const Home = ({navigation}) => {
   const data = [
     { id: "welcome", component: <Welcome /> },
     { id: "carousel", component: <Carousel /> },
@@ -30,7 +30,7 @@ const Home = () => {
                 <Text style={styles.cartNumber}>{cart.cart.length}</Text>
               </View>
             )}
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
               <Fontisto name="shopping-bag" size={24} />
             </TouchableOpacity>
           </View>
