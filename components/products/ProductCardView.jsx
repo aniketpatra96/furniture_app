@@ -45,9 +45,6 @@
 
 // export default ProductCardView;
 
-
-
-
 // import {
 //   ScrollView,
 //   StyleSheet,
@@ -95,14 +92,7 @@
 
 // export default ProductCardView;
 
-
-
-import {
-  View,
-  Image,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import { View, Image, TouchableOpacity, Text } from "react-native";
 import React from "react";
 import { COLORS, SIZES } from "../../constants";
 import { Ionicons } from "@expo/vector-icons";
@@ -117,10 +107,7 @@ const ProductCardView = ({ item }) => {
     >
       <View style={styles.container}>
         <View style={styles.imageContainer}>
-          <Image
-            source={{ uri: item.image }}
-            style={styles.image}
-          />
+          <Image source={{ uri: item.image }} style={styles.image} />
         </View>
         <View style={styles.details}>
           <Text style={styles.title} numberOfLines={1}>
@@ -137,5 +124,3 @@ const ProductCardView = ({ item }) => {
 };
 
 export default ProductCardView;
-
-

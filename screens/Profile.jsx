@@ -82,7 +82,9 @@ export default function Profile({ navigation }) {
       { cancelable: false }
     );
   };
-
+  const handleFavorite = () => {
+    navigation.navigate("Favorite");
+  };
   return (
     <ScrollView
       style={{ marginBottom: 50 }}
@@ -118,7 +120,7 @@ export default function Profile({ navigation }) {
 
           {userLogin && (
             <ScrollView style={style.menuWrapper}>
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={handleFavorite}>
                 <View style={style.menuItem(0.2)}>
                   <MaterialCommunityIcons
                     name="heart-outline"

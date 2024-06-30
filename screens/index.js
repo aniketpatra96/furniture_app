@@ -6,14 +6,15 @@ import ProductDetails from "./ProductDetails";
 import RegisterScreen from "./RegisterScreen";
 import LoginScreen from "./LoginScreen";
 import WelcomeScreen from "./WelcomeScreen";
-
+import Favorite from "./Favorite";
 export {
-    Home,
-    Search,
-    Profile,
-    Cart,
-    ProductDetails,
-    RegisterScreen,
-    LoginScreen,
-    WelcomeScreen
-}
+  Home,
+  Search,
+  Profile,
+  Cart,
+  ProductDetails,
+  RegisterScreen,
+  LoginScreen,
+  WelcomeScreen,
+  Favorite,
+};

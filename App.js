@@ -17,8 +17,10 @@ import {
   WelcomeScreen,
   LoginScreen,
   RegisterScreen,
+  Favorite,
 } from "./screens";
 import UserContextProvider from "./contexts/userContext";
+import { FavoriteProvider } from "./contexts/favoriteContext";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -40,59 +42,68 @@ export default function App() {
   }
   return (
     <UserContextProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Bottom Navigation"
-            component={BottomTabNavigation}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Profile"
-            component={Profile}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Cart"
-            component={Cart}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="ProductDetails"
-            component={ProductDetails}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Home"
-            component={WelcomeScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Register"
-            component={RegisterScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <FavoriteProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+              name="Bottom Navigation"
+              component={BottomTabNavigation}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Cart"
+              component={Cart}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="ProductDetails"
+              component={ProductDetails}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Home"
+              component={WelcomeScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Register"
+              component={RegisterScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Favorite"
+              component={Favorite}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavoriteProvider>
     </UserContextProvider>
   );
 }

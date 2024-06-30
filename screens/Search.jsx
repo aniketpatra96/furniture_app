@@ -25,7 +25,7 @@ export default function Search() {
       const response = await axios.get(
         `http://${ip}:3000/api/products/search/${search}`
       );
-      setSearchResults(response.data); // Set search results in state
+      setSearchResults(response.data);
     } catch (error) {
       console.error(error);
     }

@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { IP as ip } from '@env';
+import { IP as ip } from "@env";
 const useFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -28,9 +28,6 @@ const useFetch = () => {
     setIsLoading(true);
     fetchData();
   };
-  console.log('====================================');
-  console.log(ip);
-  console.log('====================================');
   return { data, isLoading, error, refetch };
 };
 
