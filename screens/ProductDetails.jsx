@@ -26,23 +26,23 @@ const ProductDetails = ({ navigation }) => {
   const route = useRoute();
   const { item } = route.params;
   const [count, setCount] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(item.price); // New state for total price
+  // const [totalPrice, setTotalPrice] = useState(item.price); // New state for total price
   const { favorite, dispatch } = useContext(favoriteContext);
   const [isFavorite, setIsFavorite] = useState(
     favorite.favorite.some((product) => product._id === item._id)
   );
-  useEffect(() => {
-    setTotalPrice((item.price * count).toFixed(2)); // Update total price whenever count changes
-  }, [count, item.price]);
+  // useEffect(() => {
+  //   setTotalPrice((item.price * count).toFixed(2)); // Update total price whenever count changes
+  // }, [count, item.price]);
 
-  const increment = () => {
-    setCount((count) => count + 1);
-  };
-  const decrement = () => {
-    if (count > 1) {
-      setCount((count) => count - 1);
-    }
-  };
+  // const increment = () => {
+  //   setCount((count) => count + 1);
+  // };
+  // const decrement = () => {
+  //   if (count > 1) {
+  //     setCount((count) => count - 1);
+  //   }
+  // };
   const handleAddToFavorite = () => {
     setIsFavorite((isFavorite) => !isFavorite);
     if (isFavorite) {
@@ -57,9 +57,9 @@ const ProductDetails = ({ navigation }) => {
       });
     }
   };
-  const {addToCart, removeFromCart} = useContext(cartContext);
+  const { cart, addToCart} = useContext(cartContext);
   const handleCart = () => {
-    addToCart(item);
+    addToCart(cart, item);
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -87,9 +87,9 @@ const ProductDetails = ({ navigation }) => {
         <View style={styles.details}>
           <View style={styles.titleRow}>
             <Text style={styles.title}>{item.name}</Text>
-            <View style={styles.priceWrapper}>
+            {/* <View style={styles.priceWrapper}>
               <Text style={styles.price}>${totalPrice}</Text>
-            </View>
+            </View> */}
           </View>
 
           <View style={styles.ratingRow}>
@@ -101,13 +101,13 @@ const ProductDetails = ({ navigation }) => {
             </View>
 
             <View style={styles.rating}>
-              <TouchableOpacity onPress={increment}>
+              {/* <TouchableOpacity onPress={increment}>
                 <SimpleLineIcons name="plus" size={20} />
               </TouchableOpacity>
               <Text style={styles.ratingText}>{count}</Text>
               <TouchableOpacity onPress={decrement}>
                 <SimpleLineIcons name="minus" size={20} />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
 

@@ -4,7 +4,6 @@ import styles from "./headings.style";
 import { COLORS } from "../../constants";
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import { useCols } from "../../contexts/numCols";
-
 export default function Headings() {
   const { numOfCols, setNumOfCols } = useCols();
   const toggleList = () => {
@@ -13,7 +12,11 @@ export default function Headings() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}> New Rivals</Text>
+        {/**insert a modal here */}
+        <TouchableOpacity onPress={() => {}}>
+          <FontAwesome5 name="filter" size={24} color={COLORS.primary} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}> New Arrivals</Text>
         <TouchableOpacity onPress={toggleList}>
           {numOfCols === 2 ? (
             <Ionicons name="grid" size={24} color={COLORS.primary} />

@@ -38,6 +38,33 @@ const styles = StyleSheet.create({
     bottom: SIZES.xSmall,
     right: SIZES.xSmall,
   },
+  // Add these styles for the counter
+  counterContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: SIZES.small,
+    // marginRight: 60
+  },
+  counterText: {
+    marginHorizontal: 20,
+    fontSize: SIZES.medium,
+    fontWeight: "bold",
+    color: COLORS.dark,
+  },
+  cartButton: {
+    backgroundColor: COLORS.primary,
+    padding: SIZES.small,
+    borderRadius: SIZES.small,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: SIZES.small,
+  },
+  cartButtonText: {
+    color: COLORS.lightWhite,
+    fontSize: SIZES.medium,
+    fontWeight: "bold",
+  },
 });
 
 export default styles;
