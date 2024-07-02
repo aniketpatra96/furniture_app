@@ -15,8 +15,8 @@
 //   );
 // };
 
-import React, { createContext, useContext, useReducer } from "react";
-import {CART_ACTIONS} from "../Reducers/cart.reducer";
+import React, { createContext, useContext, useReducer, useState } from "react";
+import { CART_ACTIONS } from "../Reducers/cart.reducer";
 import { Alert } from "react-native";
 export const cartContext = createContext();
 
@@ -46,7 +46,7 @@ export const cartReducer = (state, action) => {
       } else {
         return {
           ...state,
-          cart: [...state.cart, { ...action.payload, quantity: 1 }],
+          cart: [...state.cart, { ...action.payload }],
         };
       }
     case CART_ACTIONS.REMOVE_FROM_CART:
@@ -77,26 +77,33 @@ export const cartReducer = (state, action) => {
 
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
-
-  const addToCart = (item) => {
-    dispatch({ type: CART_ACTIONS.ADD_TO_CART, payload: item });
-    Alert.alert(
-      "Added Successfully",
-      `${item.name} has been added to your cart!`
-    );
+  const [count, setCount] = useState(1);
+  const addToCart = (cart, item, itemCount) => {
+    const existingItem = cart.find((cartItem) => cartItem._id === item._id);
+    if (existingItem) {
+      dispatch({ type: CART_ACTIONS.ADD_TO_CART, payload: existingItem });
+      alert(`${item.name} is already in your cart!`);
+    } else {
+      dispatch({ type: CART_ACTIONS.ADD_TO_CART, payload: item });
+      Alert.alert(
+        "Added Successfully",
+        `${item.name} has been added to your cart!`
+      );
+    }
+    // dispatch({ type: CART_ACTIONS.ADD_TO_CART, payload: item });
   };
 
-  const removeFromCart = (item,itemId) => {
+  const removeFromCart = (cart, item, itemId) => {
+    dispatch({ type: CART_ACTIONS.REMOVE_FROM_CART, payload: itemId });
     Alert.alert(
       "Removed from CART Successfully",
       `${item.name} has been removed from your cart!`
     );
-    dispatch({ type: CART_ACTIONS.REMOVE_FROM_CART, payload: itemId });
   };
 
   return (
     <cartContext.Provider
-      value={{ cart: state.cart, addToCart, removeFromCart }}
+      value={{ cart: state.cart, addToCart, removeFromCart, count, setCount }}
     >
       {children}
     </cartContext.Provider>

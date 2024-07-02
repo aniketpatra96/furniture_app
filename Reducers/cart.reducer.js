@@ -18,7 +18,7 @@ export const cartReducer = (state, action) => {
         if (foundIndex === -1) {
           cart.push(productToAdd);
         } else {
-          cart[foundIndex].quantity += 1;
+          alert(`${productToAdd.name} is already in the cart`);
         }
       } else {
         cart = [productToAdd];
