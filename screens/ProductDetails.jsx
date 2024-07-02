@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect  } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -7,42 +7,27 @@ import {
   TouchableOpacity,
   SafeAreaView,
   useWindowDimensions,
+  Alert,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { COLORS, SIZES } from "../constants/index";
-import {
-  Ionicons,
-  SimpleLineIcons,
-  MaterialCommunityIcons,
-  Fontisto,
-} from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
 import styles from "./productDetails.style";
 import { favoriteContext } from "../contexts/favoriteContext";
 import { FAVORITE_ACTIONS } from "../Reducers/favorite.reducer";
 import { cartContext } from "../contexts/cartContext";
-import addToCart from "../utils/handleCart";
+
 const ProductDetails = ({ navigation }) => {
   const { height, width } = useWindowDimensions();
   const route = useRoute();
   const { item } = route.params;
   const [count, setCount] = useState(1);
-  // const [totalPrice, setTotalPrice] = useState(item.price); // New state for total price
+
   const { favorite, dispatch } = useContext(favoriteContext);
   const [isFavorite, setIsFavorite] = useState(
     favorite.favorite.some((product) => product._id === item._id)
   );
-  // useEffect(() => {
-  //   setTotalPrice((item.price * count).toFixed(2)); // Update total price whenever count changes
-  // }, [count, item.price]);
 
-  // const increment = () => {
-  //   setCount((count) => count + 1);
-  // };
-  // const decrement = () => {
-  //   if (count > 1) {
-  //     setCount((count) => count - 1);
-  //   }
-  // };
   const handleAddToFavorite = () => {
     setIsFavorite((isFavorite) => !isFavorite);
     if (isFavorite) {
@@ -57,10 +42,13 @@ const ProductDetails = ({ navigation }) => {
       });
     }
   };
-  const { cart, addToCart} = useContext(cartContext);
+
+  const { cart, addToCart } = useContext(cartContext);
+
   const handleCart = () => {
-    addToCart(cart, item);
+    addToCart(item, count);
   };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <View style={styles.upperRow}>
@@ -87,9 +75,9 @@ const ProductDetails = ({ navigation }) => {
         <View style={styles.details}>
           <View style={styles.titleRow}>
             <Text style={styles.title}>{item.name}</Text>
-            {/* <View style={styles.priceWrapper}>
-              <Text style={styles.price}>${totalPrice}</Text>
-            </View> */}
+            <View style={styles.priceWrapper}>
+              <Text style={styles.price}>${item.price}</Text>
+            </View>
           </View>
 
           <View style={styles.ratingRow}>
@@ -98,16 +86,6 @@ const ProductDetails = ({ navigation }) => {
                 <Ionicons key={index} name="star" size={24} color="gold" />
               ))}
               <Text style={styles.ratingText}>(4.9)</Text>
-            </View>
-
-            <View style={styles.rating}>
-              {/* <TouchableOpacity onPress={increment}>
-                <SimpleLineIcons name="plus" size={20} />
-              </TouchableOpacity>
-              <Text style={styles.ratingText}>{count}</Text>
-              <TouchableOpacity onPress={decrement}>
-                <SimpleLineIcons name="minus" size={20} />
-              </TouchableOpacity> */}
             </View>
           </View>
 
@@ -152,4 +130,3 @@ const ProductDetails = ({ navigation }) => {
 };
 
 export default ProductDetails;
-

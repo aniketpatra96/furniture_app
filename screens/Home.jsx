@@ -86,7 +86,7 @@ const Home = ({ route, navigation }) => {
   const data = [
     { id: "welcome", component: <Welcome /> },
     { id: "carousel", component: <Carousel /> },
-    { id: "headings", component: <Headings /> },
+    // { id: "headings", component: <Headings /> },
     {
       id: "productRow",
       component: <ProductRow products={products} loading={loading} />,

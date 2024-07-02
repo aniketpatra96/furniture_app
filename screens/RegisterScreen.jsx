@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import { IP as ip } from "@env";
-
+import Toast from 'react-native-toast-message'; // Import the Toast module
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");

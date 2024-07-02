@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: "100%",
-    height: 150, // Adjust based on your design
+    height: 150,
     backgroundColor: COLORS.gray2,
   },
   image: {
@@ -38,13 +38,12 @@ const styles = StyleSheet.create({
     bottom: SIZES.xSmall,
     right: SIZES.xSmall,
   },
-  // Add these styles for the counter
+  //
   counterContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: SIZES.small,
-    // marginRight: 60
+    marginBottom: 5,
   },
   counterText: {
     marginHorizontal: 20,
@@ -54,11 +53,11 @@ const styles = StyleSheet.create({
   },
   cartButton: {
     backgroundColor: COLORS.primary,
-    padding: SIZES.small,
-    borderRadius: SIZES.small,
+    padding: 12,
+    borderBottomRightRadius: SIZES.small,
+    borderBottomLeftRadius: SIZES.small,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: SIZES.small,
   },
   cartButtonText: {
     color: COLORS.lightWhite,

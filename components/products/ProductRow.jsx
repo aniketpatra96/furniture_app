@@ -90,6 +90,99 @@
 
 //
 
+
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import { View, FlatList, ActivityIndicator, Text } from "react-native";
+// import { COLORS } from "../../constants";
+// import ProductCardView from "./ProductCardView";
+// import useFetch from "../../hook/useFetch";
+// import styles from "./productRow.style";
+// import { useCols } from "../../contexts/numCols";
+
+// const ProductRow = () => {
+//   const { data, isLoading, error, refetch } = useFetch();
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [isLoadingMore, setIsLoadingMore] = useState(false);
+//   const itemsPerPage = 6;
+//   const { numOfCols, setNumOfCols } = useCols();
+//   useEffect(() => {
+//     refetch();
+//   }, []);
+
+//   const handleLoadMore = () => {
+//     if (currentPage * itemsPerPage < data.length) {
+//       setIsLoadingMore(true);
+//       setTimeout(() => {
+//         setCurrentPage((prevPage) => prevPage + 1);
+//         setIsLoadingMore(false);
+//       }, 1000);
+//     }
+//   };
+
+//   const paginatedData = data.slice(0, currentPage * itemsPerPage);
+
+//   if (isLoading) {
+//     return (
+//       <View style={styles.loadingContainer}>
+//         <ActivityIndicator size="large" color={COLORS.primary} />
+//       </View>
+//     );
+//   }
+
+//   if (error) {
+//     return (
+//       <View style={styles.errorContainer}>
+//         <Text>Something went wrong!!</Text>
+//       </View>
+//     );
+//   }
+
+//   return (
+//     <FlatList
+//       style={styles.container}
+//       key={numOfCols}
+//       numColumns={numOfCols}
+//       data={paginatedData}
+//       keyExtractor={(item) => item._id}
+//       renderItem={({ item }) => (
+//         <View style={styles.card}>
+//           <ProductCardView item={item} />
+//         </View>
+//       )}
+//       contentContainerStyle={styles.flatListContent}
+//       onEndReached={handleLoadMore}
+//       onEndReachedThreshold={0.5}
+//       ListFooterComponent={
+//         isLoadingMore && (
+//           <View style={styles.infiniteScrollSpinner}>
+//             <ActivityIndicator size="large" color={COLORS.primary} />
+//           </View>
+//         )
+//       }
+//     />
+//   );
+// };
+
+// export default ProductRow;
+
+
+
+
+
+
+
+
+
+// Parent component (ProductRow or equivalent)
 import React, { useState, useEffect } from "react";
 import { View, FlatList, ActivityIndicator, Text } from "react-native";
 import { COLORS } from "../../constants";
@@ -97,13 +190,17 @@ import ProductCardView from "./ProductCardView";
 import useFetch from "../../hook/useFetch";
 import styles from "./productRow.style";
 import { useCols } from "../../contexts/numCols";
+import Headings from "../home/Headings";
 
 const ProductRow = () => {
   const { data, isLoading, error, refetch } = useFetch();
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [sortOrder, setSortOrder] = useState("default");
+  const [isGrid, setIsGrid] = useState(true); // Example state for grid/list view toggle
   const itemsPerPage = 6;
-  const { numOfCols, setNumOfCols } = useCols();
+  const { numOfCols } = useCols();
+
   useEffect(() => {
     refetch();
   }, []);
@@ -118,7 +215,25 @@ const ProductRow = () => {
     }
   };
 
-  const paginatedData = data.slice(0, currentPage * itemsPerPage);
+  const handleSort = (order) => {
+    setSortOrder(order);
+  };
+
+  const toggleView = () => {
+    setIsGrid(!isGrid);
+  };
+
+  const sortedData = [...data].sort((a, b) => {
+    if (sortOrder === "lowToHigh") {
+      return a.price - b.price;
+    } else if (sortOrder === "highToLow") {
+      return b.price - a.price;
+    } else {
+      return 0;
+    }
+  });
+
+  const paginatedData = sortedData.slice(0, currentPage * itemsPerPage);
 
   if (isLoading) {
     return (
@@ -137,28 +252,31 @@ const ProductRow = () => {
   }
 
   return (
-    <FlatList
-      style={styles.container}
-      key={numOfCols}
-      numColumns={numOfCols}
-      data={paginatedData}
-      keyExtractor={(item) => item._id}
-      renderItem={({ item }) => (
-        <View style={styles.card}>
-          <ProductCardView item={item} />
-        </View>
-      )}
-      contentContainerStyle={styles.flatListContent}
-      onEndReached={handleLoadMore}
-      onEndReachedThreshold={0.5}
-      ListFooterComponent={
-        isLoadingMore && (
-          <View style={styles.infiniteScrollSpinner}>
-            <ActivityIndicator size="large" color={COLORS.primary} />
+    <View>
+      <Headings onSort={handleSort} toggleView={toggleView} isGrid={isGrid} />
+      <FlatList
+        style={styles.container}
+        key={numOfCols}
+        numColumns={numOfCols}
+        data={paginatedData}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => (
+          <View style={styles.card}>
+            <ProductCardView item={item} />
           </View>
-        )
-      }
-    />
+        )}
+        contentContainerStyle={styles.flatListContent}
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={
+          isLoadingMore && (
+            <View style={styles.infiniteScrollSpinner}>
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            </View>
+          )
+        }
+      />
+    </View>
   );
 };
 
