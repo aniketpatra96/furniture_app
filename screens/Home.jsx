@@ -47,9 +47,6 @@
 
 // export default Home;
 
-
-
-
 import React, { useContext, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
@@ -61,8 +58,7 @@ import Carousel from "../components/home/Carousels";
 import Headings from "../components/home/Headings";
 import ProductRow from "../components/products/ProductRow";
 import { cartContext } from "../contexts/cartContext";
-
-
+import { IP as ip } from "@env";
 const Home = ({ route, navigation }) => {
   const { cart } = useContext(cartContext);
   const [products, setProducts] = useState([]);
@@ -76,7 +72,7 @@ const Home = ({ route, navigation }) => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://192.168.29.146:3000/api/products`, {
+      const response = await axios.get(`http://${ip}:3000/api/products`, {
         params: { sortBy },
       });
       setProducts(response.data);
@@ -86,11 +82,15 @@ const Home = ({ route, navigation }) => {
       setLoading(false);
     }
   };
+
   const data = [
     { id: "welcome", component: <Welcome /> },
     { id: "carousel", component: <Carousel /> },
     { id: "headings", component: <Headings /> },
-    { id: "productRow", component: <ProductRow products={products} loading={loading} /> },
+    {
+      id: "productRow",
+      component: <ProductRow products={products} loading={loading} />,
+    },
   ];
 
   const renderItem = ({ item }) => <View key={item.id}>{item.component}</View>;
@@ -123,8 +123,3 @@ const Home = ({ route, navigation }) => {
 };
 
 export default Home;
-
-
-
-
-
