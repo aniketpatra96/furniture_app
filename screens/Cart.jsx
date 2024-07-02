@@ -15,15 +15,15 @@ import { useNavigation } from "@react-navigation/native";
 import ProductCardView from "../components/products/ProductCardView";
 import { cartContext } from "../contexts/cartContext";
 export default function Favorite() {
-  const { cart } = useContext(cartContext);
+  const { cart,addToCart, removeFromCart } = useContext(cartContext);
   return (
     <SafeAreaView>
-      {cart.cart.length === 0 ? (
+      {cart.length === 0 ? (
         <Text style={styles.nofavorite}>No Items in Cart</Text>
       ) : (
         <FlatList
           style={styles.flatList}
-          data={cart.cart}
+          data={cart}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <View style={styles.card}>

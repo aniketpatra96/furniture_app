@@ -36,6 +36,10 @@ const LoginScreen = ({ navigation }) => {
     }
     navigation.navigate("Bottom Navigation");
   };
+  // navigation.addListener('beforeRemove',(e) => {
+  //   console.log(e);
+  //   e.preventDefault();
+  // })
   const validateEmail = (email) => {
     const regex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;

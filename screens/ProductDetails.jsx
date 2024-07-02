@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect  } from "react";
 import {
   Text,
   View,
@@ -26,10 +26,15 @@ const ProductDetails = ({ navigation }) => {
   const route = useRoute();
   const { item } = route.params;
   const [count, setCount] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(item.price); // New state for total price
   const { favorite, dispatch } = useContext(favoriteContext);
   const [isFavorite, setIsFavorite] = useState(
     favorite.favorite.some((product) => product._id === item._id)
   );
+  useEffect(() => {
+    setTotalPrice((item.price * count).toFixed(2)); // Update total price whenever count changes
+  }, [count, item.price]);
+
   const increment = () => {
     setCount((count) => count + 1);
   };
@@ -52,9 +57,9 @@ const ProductDetails = ({ navigation }) => {
       });
     }
   };
-  const context = useContext(cartContext);
+  const {addToCart, removeFromCart} = useContext(cartContext);
   const handleCart = () => {
-    addToCart(context.dispatch, item);
+    addToCart(item);
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -83,7 +88,7 @@ const ProductDetails = ({ navigation }) => {
           <View style={styles.titleRow}>
             <Text style={styles.title}>{item.name}</Text>
             <View style={styles.priceWrapper}>
-              <Text style={styles.price}>${item.price}</Text>
+              <Text style={styles.price}>${totalPrice}</Text>
             </View>
           </View>
 
@@ -147,3 +152,4 @@ const ProductDetails = ({ navigation }) => {
 };
 
 export default ProductDetails;
+
