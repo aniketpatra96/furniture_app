@@ -24,7 +24,7 @@ const useFetch = () => {
     fetchData();
   }, []);
 
-  const refetch = async() => {
+  const refetch = async () => {
     setIsLoading(true);
     await fetchData();
   };

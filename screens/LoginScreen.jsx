@@ -10,10 +10,20 @@ import {
 import axios from "axios";
 import { IP as ip } from "@env";
 import { userContext } from "../contexts/userContext";
+import Toast from 'react-native-toast-message'; // Import the Toast module
+
 const LoginScreen = ({ navigation }) => {
   const { setUser, setUserLogin } = useContext(userContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Login Successful',
+      visibilityTime: 3000,
+      autoHide: true,
+    });
+  }
   const handleLogin = async () => {
     if (validateEmail(email) && validatePassword(password)) {
       const user = { email, password };
@@ -22,19 +32,34 @@ const LoginScreen = ({ navigation }) => {
         const { _id, name, email } = response.data;
         setUser({ _id, name, email, password });
         setUserLogin(true);
-        alert("You are Logged in successfully");
-        setTimeout(() => navigation.navigate("Bottom Navigation"), 1500);
+        Toast.show({
+          type: 'success',
+          text1: 'Login Successful',
+          visibilityTime: 1500,
+          autoHide: true,
+        });
+        // alert("login sccess")
+        setTimeout(() => navigation.navigate("Bottom Navigation"), 1000);
         setEmail("");
         setPassword("");
       } else {
-        alert("Invalid Email or Password");
+        Toast.show({
+          type: 'error',
+          text1: 'Login Failed',
+          visibilityTime: 3000,
+          autoHide: true,
+        });
         return;
       }
     } else {
-      alert("Invalid Email or Password");
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid Email or Password',
+        visibilityTime: 3000,
+        autoHide: true,
+      });
       return;
     }
-    navigation.navigate("Bottom Navigation");
   };
   // navigation.addListener('beforeRemove',(e) => {
   //   console.log(e);
@@ -123,6 +148,7 @@ const LoginScreen = ({ navigation }) => {
           Register
         </Text>
       </Text>
+      <Toast ref={(ref) => Toast.setRef(ref)} /> 
     </View>
   );
 };
