@@ -62,6 +62,7 @@ import Headings from "../components/home/Headings";
 import ProductRow from "../components/products/ProductRow";
 import { cartContext } from "../contexts/cartContext";
 
+
 const Home = ({ route, navigation }) => {
   const { cart } = useContext(cartContext);
   const [products, setProducts] = useState([]);
@@ -85,7 +86,6 @@ const Home = ({ route, navigation }) => {
       setLoading(false);
     }
   };
-
   const data = [
     { id: "welcome", component: <Welcome /> },
     { id: "carousel", component: <Carousel /> },
