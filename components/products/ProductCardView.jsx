@@ -98,7 +98,7 @@ import { COLORS, SIZES } from "../../constants";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./productCardView.style";
-import addToCart, { removeFromCart } from "../../utils/handleCart";
+// import addToCart, { removeFromCart } from "../../utils/handleCart";
 import { cartContext } from "../../contexts/cartContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 const ProductCardView = ({ item, isCart = false }) => {
