@@ -35,6 +35,9 @@
 11. **Google Maps Integration**
     - Integrates Google Maps API for location-based services.
 
+12. **Edit Profile**
+     - user can edit details like name, profile image, email, phone Number, address
+
 ## Frontend
 
 Developed using **React Native**, leveraging components such as Text, TouchableOpacity, TextInput, StyleSheet, Image, ActivityIndicator, View, SafeArea, ScrollView, and FlatList for a responsive and interactive user interface. Styles are organized in separate files for modularity and maintainability.
