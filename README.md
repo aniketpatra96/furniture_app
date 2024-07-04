@@ -64,8 +64,7 @@ Backend development is powered by **Node.js** with **Express**, utilizing packag
 
 
 
-![IMG-20240704-WA0011](https://github.com/Bishal011/furniture-app/assets/105370000/2ebb3a81-2c91-4122-8d8d-6f63bcd2d290)
-![IMG-20240704-WA0010](https://github.com/Bishal011/furniture-app/assets/105370000/9851db9b-d33b-4869-990f-75d454769e23)
+![IMG-20240704-WA0011](https://github.com/Bishal011/furniture-app/assets/105370000/2ebb3a81-2c91-4122-8d8d-6f63bcd2d290)    ![IMG-20240704-WA0010](https://github.com/Bishal011/furniture-app/assets/105370000/9851db9b-d33b-4869-990f-75d454769e23)
 ![IMG-20240704-WA0009](https://github.com/Bishal011/furniture-app/assets/105370000/1383d881-e9e0-4f60-ac80-ecd74f3df4a0)
 ![IMG-20240704-WA0008](https://github.com/Bishal011/furniture-app/assets/105370000/6875be8e-386d-40fc-a66f-e7fe63b7d14b)
 ![IMG-20240704-WA0007](https://github.com/Bishal011/furniture-app/assets/105370000/fc3297d8-a289-43be-bff7-67588690ce0f)
