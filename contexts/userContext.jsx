@@ -10,8 +10,11 @@ function UserContextProvider({ children }) {
     password: "",
   });
   const [userLogin, setUserLogin] = useState(false);
+  const [profile, setProfile] = useState({});
   return (
-    <userContext.Provider value={{ user, setUser, userLogin, setUserLogin }}>
+    <userContext.Provider
+      value={{ user, setUser, userLogin, setUserLogin, profile, setProfile }}
+    >
       {children}
     </userContext.Provider>
   );

@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useReducer, useState } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import { CART_ACTIONS, cartReducer } from "../Reducers/cart.reducer";
-import { Alert } from "react-native";
+import Toast from "react-native-toast-message"; // Import the Toast module
 
 export const cartContext = createContext();
 
@@ -20,28 +20,48 @@ export const CartProvider = ({ children }) => {
       (cartItem) => cartItem._id === item._id
     );
     if (existingItem) {
-      Alert.alert(
-        "Product already in cart!",
-        `${item.name} is already in your cart!`
-      );
+      Toast.show({
+        type: 'info',
+        text1: 'Product already in cart!',
+        text2: `${item.name} is already in your cart!`,
+        visibilityTime: 1500,
+        autoHide: true,
+      });
     } else {
       dispatch({
         type: CART_ACTIONS.ADD_TO_CART,
         payload: { ...item, quantity },
       });
-      Alert.alert(
-        "Added Successfully",
-        `${item.name} has been added to your cart!`
-      );
+      Toast.show({
+        type: 'success',
+        text1: 'Added Successfully',
+        text2: `${item.name} has been added to your cart!`,
+        visibilityTime: 1500,
+        autoHide: true,
+      });
     }
   };
 
   const removeFromCart = (itemId) => {
     dispatch({ type: CART_ACTIONS.REMOVE_FROM_CART, payload: itemId });
-    Alert.alert(
-      "Removed Successfully",
-      `Item has been removed from your cart!`
-    );
+    Toast.show({
+      type: 'success',
+      text1: 'Removed Successfully',
+      text2: 'Item has been removed from your cart!',
+      visibilityTime: 1500,
+      autoHide: true,
+    });
+  };
+
+  const removeAllFromCart = () => {
+    dispatch({ type: CART_ACTIONS.REMOVE_ALL });
+    Toast.show({
+      type: 'success',
+      text1: 'All items removed',
+      text2: 'All items have been removed from your cart!',
+      visibilityTime: 1500,
+      autoHide: true,
+    });
   };
 
   const updateQuantity = (id, quantity) => {
@@ -50,9 +70,16 @@ export const CartProvider = ({ children }) => {
 
   return (
     <cartContext.Provider
-      value={{ cart: state.cart, addToCart, removeFromCart, updateQuantity }}
+      value={{
+        cart: state.cart,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        removeAllFromCart,
+      }}
     >
       {children}
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </cartContext.Provider>
   );
 };

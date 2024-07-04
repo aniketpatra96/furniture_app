@@ -7,6 +7,9 @@ import RegisterScreen from "./RegisterScreen";
 import LoginScreen from "./LoginScreen";
 import WelcomeScreen from "./WelcomeScreen";
 import Favorite from "./Favorite";
+import EditProfile from "./EditProfile";
+import Payment from "./Payment";
+import Orders from "./Orders";
 export {
   Home,
   Search,
@@ -17,5 +20,7 @@ export {
   LoginScreen,
   WelcomeScreen,
   Favorite,
-  
+  EditProfile,
+  Payment,
+  Orders,
 };

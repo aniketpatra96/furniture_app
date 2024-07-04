@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  Keyboard,
 } from "react-native";
 import axios from "axios";
 import { IP as ip } from "@env";
@@ -39,7 +40,7 @@ const LoginScreen = ({ navigation }) => {
           autoHide: true,
         });
         // alert("login sccess")
-        setTimeout(() => navigation.navigate("Bottom Navigation"), 1000);
+        setTimeout(() => navigation.navigate("Bottom Navigation"), 900);
         setEmail("");
         setPassword("");
       } else {

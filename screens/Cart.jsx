@@ -6,14 +6,16 @@ import { COLORS, SIZES } from "../constants";
 import ProductCardView from "../components/products/ProductCardView";
 import { cartContext } from "../contexts/cartContext";
 
-export default function Favorite() {
+export default function Cart({ navigation }) {
   const { cart } = useContext(cartContext);
 
   // Calculate the total price of the items in the cart
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
-
+  const handlePayment = () => {
+    navigation.navigate("Payment");
+  };
   return (
     <SafeAreaView style={styles.container}>
       {cart.length === 0 ? (
@@ -40,7 +42,10 @@ export default function Favorite() {
                 ${calculateTotalPrice().toFixed(2)}
               </Text>
             </View>
-            <TouchableOpacity style={styles.checkoutButton}>
+            <TouchableOpacity
+              onPress={handlePayment}
+              style={styles.checkoutButton}
+            >
               <Text style={styles.checkoutButtonText}>Check Out</Text>
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>{cart.length}</Text>

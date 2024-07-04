@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,19 +6,41 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  StyleSheet
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
   AntDesign,
   MaterialCommunityIcons,
   SimpleLineIcons,
+  FontAwesome5,
 } from "@expo/vector-icons";
 import { COLORS } from "../constants";
 import style from "./profile.style";
 import { userContext } from "../contexts/userContext";
+import { IP as ip } from "@env";
+import axios from "axios";
+import Toast from "react-native-toast-message";
+
 
 export default function Profile({ navigation }) {
-  const { user, setUser, userLogin, setUserLogin } = useContext(userContext);
+  const { user, setUser, userLogin, setUserLogin,profile } = useContext(userContext);
+  const [profileImage, setProfileImage] = useState(null);
+  console.log(profileImage);
+  const fetchProfileImage = async (userId) => {
+    try {
+      const response = await axios.get(`http://${ip}:3000/profile/${userId}`);
+      if (response.status === 200) {
+        setProfileImage(response.data.avatar);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+  
+  useEffect(() => {
+    fetchProfileImage(user._id);
+  }, [user._id,profile]);
   const logout = () => {
     Alert.alert(
       "Logout",
@@ -62,31 +84,17 @@ export default function Profile({ navigation }) {
     );
   };
 
-  const deleteAccount = () => {
-    Alert.alert(
-      "Delete Account",
-      "Are you sure you want to delete your account?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        {
-          text: "Continue",
-          onPress: () => {
-            console.log("Logout Pressed");
-          },
-        },
-      ],
-      { cancelable: false }
-    );
+  const handleEdit = () => {
+    navigation.navigate("Edit Profile");
   };
   const handleFavorite = () => {
     navigation.navigate("Favorite");
   };
   const handleCart = () => {
     navigation.navigate("Cart");
+  };
+  const handleOrder = () => {
+    navigation.navigate("Orders");
   };
   return (
     <ScrollView
@@ -103,7 +111,13 @@ export default function Profile({ navigation }) {
         </View>
         <View style={style.profileContainer}>
           <Image
-            source={require("../assets/images/profile.jpeg")}
+            source={
+              profileImage !== null || profileImage !== undefined
+                ? {
+                    uri: profileImage,
+                  }
+                : require("../assets/images/profile.jpeg")
+            }
             style={style.profile}
           />
           <Text style={style.name}>
@@ -130,11 +144,11 @@ export default function Profile({ navigation }) {
                     color={COLORS.primary}
                     size={24}
                   />
-                  <Text style={style.menuText}>Favourites</Text>
+                  <Text style={style.menuText}>Favorites</Text>
                 </View>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={handleOrder}>
                 <View style={style.menuItem(0.2)}>
                   <MaterialCommunityIcons
                     name="truck-delivery-outline"
@@ -167,17 +181,16 @@ export default function Profile({ navigation }) {
                 </View>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => deleteAccount()}>
+              <TouchableOpacity onPress={handleEdit}>
                 <View style={style.menuItem(0.2)}>
-                  <AntDesign
-                    name="deleteuser"
-                    color={COLORS.primary}
+                  <FontAwesome5
+                    name="user-edit"
                     size={24}
+                    color={COLORS.primary}
                   />
-                  <Text style={style.menuText}>Delete Account</Text>
+                  <Text style={style.menuText}>Edit Account</Text>
                 </View>
               </TouchableOpacity>
-
               <TouchableOpacity onPress={() => logout()}>
                 <View style={style.menuItem(0.2)}>
                   <AntDesign name="logout" color={COLORS.primary} size={24} />

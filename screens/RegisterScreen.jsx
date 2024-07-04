@@ -24,17 +24,35 @@ const RegisterScreen = ({ navigation }) => {
         user
       );
       if (response.status === 201) {
-        alert("You are Registered successfully");
+        // alert("You are Registered successfully");
+        Toast.show({
+          type: 'success',
+          text1: 'You are Registered successfully',
+          visibilityTime: 1500,
+          autoHide: true,
+        });
         setTimeout(() => navigation.navigate("Login"), 1000);
+        return;
       } else {
-        alert("Unable to register user!");
+        // alert("Unable to register user!");
+        Toast.show({
+          type: 'error',
+          text1: 'Unable to register user!',
+          visibilityTime: 1500,
+          autoHide: true,
+        });
         return;
       }
     } else {
-      alert("Invalid Credentials!!");
+      // alert("Invalid Credentials!!");
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid Credentials!!',
+        visibilityTime: 1500,
+        autoHide: true,
+      });
       return;
     }
-    navigation.navigate("Bottom Navigation");
   };
   const validateEmail = (email) => {
     const regex =

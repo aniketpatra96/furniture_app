@@ -98,7 +98,7 @@ const ProductDetails = ({ navigation }) => {
             <View style={styles.location}>
               <View style={{ flexDirection: "row" }}>
                 <Ionicons name="location-outline" size={20} />
-                <Text> India </Text>
+                <Text> USA </Text>
               </View>
 
               <View style={{ flexDirection: "row" }}>
