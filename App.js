@@ -18,6 +18,9 @@ import {
   LoginScreen,
   RegisterScreen,
   Favorite,
+  EditProfile,
+  Payment,
+  Orders,
 } from "./screens";
 import { ShoppingProvider } from "./contexts";
 import { PaperProvider } from "react-native-paper";
@@ -99,6 +102,27 @@ export default function App() {
               component={Favorite}
               options={{
                 headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Edit Profile"
+              component={EditProfile}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Payment"
+              component={Payment}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Orders"
+              component={Orders}
+              options={{
+                headerShown: true,
               }}
             />
           </Stack.Navigator>

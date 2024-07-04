@@ -37,7 +37,23 @@ const LoginUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedUser = await UserModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    if (!updatedUser) {
+      return res.status(404).json("User not found");
+    }
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 module.exports = {
   RegisterUser,
   LoginUser,
+  updateUser,
 };
