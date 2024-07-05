@@ -45,10 +45,10 @@ export default function Headings({ onSort, toggleView, isGrid }) {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Sort by Price</Text>
             <View style={styles.button}>
-              <Button title="Low to High" onPress={() => handleSort("lowToHigh")} />
+              <Button title="Low to High" onPress={() => handleSort("lowToHigh")} color={COLORS.primary} />
             </View>
             <View style={styles.button}>
-              <Button title="High to Low" onPress={() => handleSort("highToLow")} />
+              <Button title="High to Low" onPress={() => handleSort("highToLow")} color={COLORS.primary} />
             </View>
             <View style={styles.button}>
               <Button title="Cancel" onPress={() => setIsModalVisible(false)} color={COLORS.red} />

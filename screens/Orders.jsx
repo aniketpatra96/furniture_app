@@ -7,12 +7,11 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
-import { IP as ip } from "@env";
 import axios from "axios";
 import { userContext } from "../contexts/userContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS, SIZES } from "../constants";
-
+import {IP as ip} from "@env";
 const Orders = () => {
   const { user } = useContext(userContext);
   const [orders, setOrders] = useState([]);
@@ -23,8 +22,11 @@ const Orders = () => {
 
   const fetchOrders = async (userId) => {
     try {
-      const response = await axios.get(`http://${ip}:3000/orders/${userId}`);
+      const response = await axios.get(
+        `http://${ip}:3000/orders/${userId}`
+      );
       if (response.status === 200) {
+        console.log(response.data)
         setOrders(response.data);
       } else {
         console.error("Unable to fetch orders");
@@ -33,32 +35,37 @@ const Orders = () => {
       console.error("Error fetching orders:", error);
     }
   };
-  const handleOrderDetails = (item) => {
-    console.log('order handled');
-  }
+
   const renderProductItem = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => handleOrderDetails(item)}>
-        <View style={styles.container}>
-          {item.products.map((product) => (
-            <View key={product._id}>
-              <View style={styles.imageContainer}>
-                <Image
-                  source={{ uri: product.productImage }}
-                  style={styles.image}
-                />
-              </View>
-              <View style={styles.details}>
-                <Text style={styles.title} numberOfLines={2}>
-                  {product.productName}
-                </Text>
-                <Text style={styles.price}>Price: ${product.productPrice}</Text>
-                <Text style={styles.price}>Quantity: {product.quantity}</Text>
-              </View>
+      <TouchableOpacity
+        onPress={() => handleOrderDetails(item)}
+        style={styles.orderCard}
+      >
+        <View style={styles.orderHeader}>
+          <Text style={styles.orderStatus}>preparing shipment</Text>
+          <Text style={styles.orderDate}>
+            {new Date(item.createdAt).toLocaleDateString()}
+          </Text>
+        </View>
+        {item.products.map((product) => (
+          <View key={product._id} style={styles.productContainer}>
+            <Image
+              source={{ uri: product.productImage }}
+              style={styles.productImage}
+            />
+            <View style={styles.productDetails}>
+              <Text style={styles.productName}>{product.productName}</Text>
+              <Text style={styles.productPrice}>${product.productPrice}</Text>
+              <Text style={styles.productQuantity}>
+                Qty: {product.quantity}
+              </Text>
             </View>
-          ))}
-          <Text style={styles.totalPrice}>
-            Total Order Amount: ${item.totalPrice}
+          </View>
+        ))}
+        <View style={styles.orderFooter}>
+          <Text style={styles.totalAmount}>
+            Total Amount : ${item.totalPrice}
           </Text>
         </View>
       </TouchableOpacity>
@@ -97,50 +104,68 @@ const styles = StyleSheet.create({
     paddingVertical: SIZES.medium,
     paddingHorizontal: SIZES.medium,
   },
-  container: {
+  orderCard: {
     backgroundColor: COLORS.white,
     borderRadius: SIZES.medium,
     marginBottom: SIZES.medium,
-    elevation: 3,
+    padding: SIZES.medium,
     shadowColor: COLORS.black,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.1,
     shadowRadius: 3.84,
+    elevation: 2,
   },
-  imageContainer: {
-    height: 150,
-    backgroundColor: COLORS.gray,
-    borderTopLeftRadius: SIZES.medium,
-    borderTopRightRadius: SIZES.medium,
-    overflow: "hidden",
+  orderHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: SIZES.small,
   },
-  image: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
-  details: {
-    padding: SIZES.medium,
-  },
-  title: {
+  orderStatus: {
     fontSize: SIZES.body2,
     fontWeight: "bold",
+    color: "#1A5319",
+  },
+  orderDate: {
+    fontSize: SIZES.body3,
+    color: COLORS.gray,
+  },
+  productContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: SIZES.small,
+  },
+  productImage: {
+    width: 60,
+    height: 60,
+    borderRadius: SIZES.small,
+    marginRight: SIZES.medium,
+  },
+  productDetails: {
+    flex: 1,
+  },
+  productName: {
+    fontSize: SIZES.body2,
+    fontWeight: "bold",
     color: COLORS.black,
   },
-  price: {
-    fontSize: SIZES.body2,
+  productPrice: {
+    fontSize: SIZES.body3,
     color: COLORS.darkGray,
-    marginBottom: SIZES.small,
   },
-  totalPrice: {
-    fontSize: SIZES.body2,
-    fontWeight: "bold",
-    paddingHorizontal: SIZES.medium,
-    paddingBottom: SIZES.medium,
+  productQuantity: {
+    fontSize: SIZES.body3,
+    color: COLORS.darkGray,
+  },
+  orderFooter: {
     borderTopWidth: 1,
     borderTopColor: COLORS.lightGray,
+    paddingTop: SIZES.small,
     marginTop: SIZES.small,
+  },
+  totalAmount: {
+    fontSize: SIZES.body2,
+    fontWeight: "bold",
+    color: COLORS.black,
   },
 });
 
