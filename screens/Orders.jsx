@@ -33,7 +33,9 @@ const Orders = () => {
       console.error("Error fetching orders:", error);
     }
   };
-
+  const handleOrderDetails = (item) => {
+    console.log('order handled');
+  }
   const renderProductItem = ({ item }) => {
     return (
       <TouchableOpacity onPress={() => handleOrderDetails(item)}>
