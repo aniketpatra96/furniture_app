@@ -70,6 +70,7 @@ const EditProfileScreen = () => {
       quality: 1,
     });
     if (!result.canceled) {
+      console.log(result.assets[0].uri);
       setImage(result.assets[0].uri);
     }
   };
@@ -99,12 +100,14 @@ const EditProfileScreen = () => {
     try {
       let response = null;
       const res = await axios.get(`http://${ip}:3000/profile/${user._id}`);
-      if (res?.data === "" || res?.data === undefined || res?.data === null) {
+      console.log(res.status)
+      if (res.status === 200 && (res.data === undefined || res.data === "" || res.data === null)) {
         await axios.post(`http://${ip}:3000/profile/${user._id}`, {
           avatar: image,
           mobile,
           address,
         });
+        return;
       } else {
         response = await axios.put(
           `http://${ip}:3000/profile/${user?._id}`,
@@ -114,6 +117,7 @@ const EditProfileScreen = () => {
             address,
           }
         );
+        console.log(response.data)
       }
       const response2 = await axios.put(`http://${ip}:3000/user/${user?._id}`, {
         email,
