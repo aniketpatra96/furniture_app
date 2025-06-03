@@ -35,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
             visibilityTime: 1500,
             autoHide: true,
           });
-          setTimeout(() => navigation.navigate("Bottom Navigation"), 900);
+          setTimeout(() => navigation.navigate("Bottom Navigation"), 300);
           setEmail("");
           setPassword("");
         } else {

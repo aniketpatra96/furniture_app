@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-  StyleSheet
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -23,9 +22,9 @@ import Toast from "react-native-toast-message";
 import { backend_url } from "../backend_url";
 
 export default function Profile({ navigation }) {
-  const { user, setUser, userLogin, setUserLogin, profile, token } = useContext(userContext);
+  const { user, setUser, userLogin, setUserLogin, profile, token } =
+    useContext(userContext);
   const [profileImage, setProfileImage] = useState(null);
-  console.log(profileImage);
   const fetchProfileImage = async (userId) => {
     try {
       const response = await axios.get(`${backend_url}/profile/${userId}`, {
@@ -40,10 +39,10 @@ export default function Profile({ navigation }) {
       console.error(error.message);
     }
   };
-  
+
   useEffect(() => {
     fetchProfileImage(user._id);
-  }, [user._id,profile]);
+  }, [user._id, profile]);
   const logout = () => {
     Alert.alert(
       "Logout",
@@ -119,7 +118,7 @@ export default function Profile({ navigation }) {
                 ? {
                     uri: profileImage,
                   }
-                : require("../assets/images/profile.jpeg")
+                : { uri: require("../assets/images/profile.jpeg") }
             }
             style={style.profile}
           />

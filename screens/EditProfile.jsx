@@ -69,7 +69,6 @@ const EditProfileScreen = () => {
       quality: 1,
     });
     if (!result.canceled) {
-      console.log(result.assets[0].uri);
       setImage(result.assets[0].uri);
     }
   };
@@ -107,7 +106,6 @@ const EditProfileScreen = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res.status)
       if (res.status === 200 && (res.data === undefined || res.data === "" || res.data === null)) {
         await axios.post(
           `${backend_url}/profile/${user._id}`,
@@ -137,7 +135,6 @@ const EditProfileScreen = () => {
             },
           }
         );
-        console.log(response.data)
       }
       const response2 = await axios.put(
         `${backend_url}/user/${user?._id}`,
@@ -151,7 +148,6 @@ const EditProfileScreen = () => {
           },
         }
       );
-      console.log(response, response2);
       if (response.status === 200 && response2.status === 200) {
         Toast.show({
           type: 'success',
