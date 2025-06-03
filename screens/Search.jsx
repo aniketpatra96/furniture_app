@@ -5,7 +5,7 @@ import {
   FlatList,
   Keyboard,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./search.style";
 import { COLORS, SIZES } from "../constants";
@@ -13,25 +13,46 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import ProductCardView from "../components/products/ProductCardView";
-import { IP as ip } from "@env";
+import Toast from "react-native-toast-message";
+import { backend_url } from "../backend_url";
+import { userContext } from "../contexts/userContext";
 
 export default function Search() {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]); // State to hold search results
-
+  const { token } = useContext(userContext);
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://${ip}:3000/api/products/search/${search}`
+        `${backend_url}/api/products/search/${search}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
-      console.log('====================================');
-      console.log(response);
-      console.log('====================================');
+      // console.log('====================================');
+      // console.log(response.data);
+      // console.log('====================================');
       if (response.status === 200) setSearchResults(response.data);
-      else throw new Error("Unable to get search results");
+      else {
+        // console.log("No products found!");
+        Toast.show({
+          type: "error",
+          text1: "No products found!",
+          position: "top",
+        });
+        setSearchResults([]);
+      }
     } catch (error) {
       console.error(error);
+      Toast.show({
+        type: "error",
+        text1: "Error occurred in searching products!",
+        position: "top",
+      });
+      setSearchResults([]);
     }
   };
 

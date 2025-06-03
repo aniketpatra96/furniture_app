@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import PoppinsRegular from "./assets/fonts/Poppins-Regular.ttf";
 import PoppinsMedium from "./assets/fonts/Poppins-Medium.ttf";
 import PoppinsBold from "./assets/fonts/Poppins-Bold.ttf";

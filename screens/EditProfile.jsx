@@ -14,16 +14,15 @@ import {
   Feather,
   FontAwesome,
 } from "@expo/vector-icons";
-import { IP as ip } from "@env";
 import * as ImagePicker from "expo-image-picker";
 import { userContext } from "../contexts/userContext";
 import axios from "axios";
 import Toast from "react-native-toast-message"; // Import the Toast module
+import { backend_url } from "../backend_url";
 
 const EditProfileScreen = () => {
   const { colors } = useTheme();
   const bs = useRef(null);
-
   const takePhotoFromCamera = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
@@ -75,7 +74,7 @@ const EditProfileScreen = () => {
     }
   };
 
-  const { user, profile, setProfile } = useContext(userContext);
+  const { user, profile, setProfile, token } = useContext(userContext);
   const [image, setImage] = useState(profile.avatar);
   const [name, setName] = useState(user.name);
   const [mobile, setMobile] = useState(profile.mobile);
@@ -84,7 +83,11 @@ const EditProfileScreen = () => {
 
   const fetchProfile = async (userId) => {
     try {
-      const response = await axios.get(`http://${ip}:3000/profile/${userId}`);
+      const response = await axios.get(`${backend_url}/profile/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.status === 200) {
         setProfile(response.data);
         setMobile(response.data.mobile);
@@ -99,30 +102,55 @@ const EditProfileScreen = () => {
   const handleUpdate = async () => {
     try {
       let response = null;
-      const res = await axios.get(`http://${ip}:3000/profile/${user._id}`);
+      const res = await axios.get(`${backend_url}/profile/${user._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(res.status)
       if (res.status === 200 && (res.data === undefined || res.data === "" || res.data === null)) {
-        await axios.post(`http://${ip}:3000/profile/${user._id}`, {
-          avatar: image,
-          mobile,
-          address,
-        });
-        return;
-      } else {
-        response = await axios.put(
-          `http://${ip}:3000/profile/${user?._id}`,
+        await axios.post(
+          `${backend_url}/profile/${user._id}`,
           {
             avatar: image,
             mobile,
             address,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        return;
+      } else {
+        response = await axios.put(
+          `${backend_url}/profile/${user?._id}`,
+          {
+            avatar: image,
+            mobile,
+            address,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         console.log(response.data)
       }
-      const response2 = await axios.put(`http://${ip}:3000/user/${user?._id}`, {
-        email,
-        name,
-      });
+      const response2 = await axios.put(
+        `${backend_url}/user/${user?._id}`,
+        {
+          email,
+          name,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(response, response2);
       if (response.status === 200 && response2.status === 200) {
         Toast.show({
@@ -258,7 +286,7 @@ const EditProfileScreen = () => {
       <TouchableOpacity style={styles.commandButton} onPress={handleUpdate}>
         <Text style={styles.panelButtonTitle}>Edit</Text>
       </TouchableOpacity>
-      <Toast ref={(ref) => Toast.setRef(ref)} />
+      <Toast />
     </SafeAreaView>
   );
 };

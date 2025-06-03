@@ -1,17 +1,23 @@
-import { View, Text } from "react-native";
-import { useState, useEffect } from "react";
+// import { View, Text } from "react-native";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { IP as ip } from "@env";
+import { backend_url } from "../backend_url";
+import { userContext } from "../contexts/userContext";
 const useFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [data, setData] = useState([]);
+  const { token } = useContext(userContext);
   const fetchData = async () => {
     setIsLoading(true);
     setError(false);
     try {
-      //replace it with ur own ip
-      const response = await axios.get(`http://${ip}:3000/api/products/`);
+      const response = await axios.get(`${backend_url}/api/products/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // console.log(response.data);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {

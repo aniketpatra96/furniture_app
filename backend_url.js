@@ -1,0 +1,1 @@
+export const backend_url = "https://furniture-backend-7cxm.onrender.com"

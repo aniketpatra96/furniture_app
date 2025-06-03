@@ -27,7 +27,6 @@ const ProductDetails = ({ navigation }) => {
   const [isFavorite, setIsFavorite] = useState(
     favorite.favorite.some((product) => product._id === item._id)
   );
-
   const handleAddToFavorite = () => {
     setIsFavorite((isFavorite) => !isFavorite);
     if (isFavorite) {

@@ -9,8 +9,8 @@ import {
   SafeAreaView,
 } from "react-native";
 import axios from "axios";
-import { IP as ip } from "@env";
 import Toast from 'react-native-toast-message'; // Import the Toast module
+import { backend_url } from "../backend_url";
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -20,7 +20,7 @@ const RegisterScreen = ({ navigation }) => {
     if (name !== "" || (validateEmail(email) && validatePassword(password))) {
       const user = { name, email, password };
       const response = await axios.post(
-        `http://${ip}:3000/user/register`,
+        `${backend_url}/user/register`,
         user
       );
       if (response.status === 201) {
@@ -111,7 +111,7 @@ const RegisterScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.iconButton}>
           <Image
             source={{
-              uri: "https://banner2.cleanpng.com/20180423/gkw/kisspng-google-logo-logo-logo-5ade7dc753b015.9317679115245306313428.jpg",
+              uri: "https://icon2.cleanpng.com/lnd/20241121/sc/bd7ce03eb1225083f951fc01171835.webp",
             }}
             style={styles.icon}
           />

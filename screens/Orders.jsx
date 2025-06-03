@@ -11,9 +11,9 @@ import axios from "axios";
 import { userContext } from "../contexts/userContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS, SIZES } from "../constants";
-import {IP as ip} from "@env";
+import { backend_url } from "../backend_url";
 const Orders = () => {
-  const { user } = useContext(userContext);
+  const { user, token } = useContext(userContext);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -22,9 +22,12 @@ const Orders = () => {
 
   const fetchOrders = async (userId) => {
     try {
-      const response = await axios.get(
-        `http://${ip}:3000/orders/${userId}`
-      );
+      console.log(userId);
+      const response = await axios.get(`${backend_url}/orders/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.status === 200) {
         console.log(response.data)
         setOrders(response.data);

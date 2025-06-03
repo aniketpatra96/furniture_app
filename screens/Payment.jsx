@@ -307,13 +307,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { cartContext } from "../contexts/cartContext";
 import { userContext } from "../contexts/userContext";
 import axios from "axios";
-import { IP as ip } from "@env";
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/FontAwesome";
-
+import { backend_url } from "../backend_url";
 const Payment = ({ navigation }) => {
   const { cart, removeAllFromCart } = useContext(cartContext);
-  const { user } = useContext(userContext);
+  const { user, token } = useContext(userContext);
   const [recipientName, setRecipientName] = useState(user.name);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
@@ -324,7 +323,11 @@ const Payment = ({ navigation }) => {
 
   const fetchProfile = async (userId) => {
     try {
-      const response = await axios.get(`http://${ip}:3000/profile/${userId}`);
+      const response = await axios.get(`${backend_url}/profile/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response?.status === 200) {
         setPhoneNumber(response?.data?.mobile);
         setAddress(response?.data?.address);
@@ -364,21 +367,29 @@ const Payment = ({ navigation }) => {
   const createOrder = async () => {
     let response = null;
     try {
-      response = await axios.post(`http://${ip}:3000/orders/`, {
-        userId: user._id,
-        recipientName,
-        phoneNumber,
-        address,
-        paymentMethod: selectedPaymentMethod,
-        products: cart.map((item) => ({
-          productId: item._id,
-          productImage: item.image,
-          productName: item.name,
-          productPrice: item.price,
-          quantity: item.quantity,
-        })),
-        totalPrice: calculateTotalPrice().toFixed(2),
-      });
+      response = await axios.post(
+        `${backend_url}/orders/`,
+        {
+          userId: user._id,
+          recipientName,
+          phoneNumber,
+          address,
+          paymentMethod: selectedPaymentMethod,
+          products: cart.map((item) => ({
+            productId: item._id,
+            productImage: item.image,
+            productName: item.name,
+            productPrice: item.price,
+            quantity: item.quantity,
+          })),
+          totalPrice: calculateTotalPrice().toFixed(2),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(response.status);
       if (response?.status === 201) {
         setModalType("success");

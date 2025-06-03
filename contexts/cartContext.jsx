@@ -79,7 +79,7 @@ export const CartProvider = ({ children }) => {
       }}
     >
       {children}
-      <Toast ref={(ref) => Toast.setRef(ref)} />
+      <Toast />
     </cartContext.Provider>
   );
 };

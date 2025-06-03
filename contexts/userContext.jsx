@@ -9,11 +9,21 @@ function UserContextProvider({ children }) {
     email: "",
     password: "",
   });
+  const [token, setToken] = useState("");
   const [userLogin, setUserLogin] = useState(false);
   const [profile, setProfile] = useState({});
   return (
     <userContext.Provider
-      value={{ user, setUser, userLogin, setUserLogin, profile, setProfile }}
+      value={{
+        user,
+        setUser,
+        userLogin,
+        setUserLogin,
+        profile,
+        setProfile,
+        token,
+        setToken,
+      }}
     >
       {children}
     </userContext.Provider>

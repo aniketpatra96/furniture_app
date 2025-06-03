@@ -4,12 +4,14 @@ import { Ionicons, Fontisto } from "@expo/vector-icons";
 import { Text, View, TouchableOpacity, FlatList } from "react-native";
 import axios from "axios";
 import styles from "./home.style";
-import { Welcome } from "../components";
-import Carousel from "../components/home/Carousels";
+import { Welcome, Carousel } from "../components";
+// import Carousel from "../components/home/Carousels";
 import Headings from "../components/home/Headings";
 import ProductRow from "../components/products/ProductRow";
 import { cartContext } from "../contexts/cartContext";
-import { IP as ip } from "@env";
+import { API_KEY } from "../api_keys";
+import { backend_url } from "../backend_url";
+import { userContext } from "../contexts/userContext";
 const Home = ({ route, navigation }) => {
   const { cart } = useContext(cartContext);
   const [products, setProducts] = useState([]);
@@ -18,7 +20,7 @@ const Home = ({ route, navigation }) => {
   const [city,setCity] = useState("");
   const [region,setRegion] = useState("");
   const [ipAddress,setIpAddress] = useState("");
-
+  const { token } = useContext(userContext);
   useEffect(() => {
     fetchProducts();
   }, [sortBy]);
@@ -26,9 +28,17 @@ const Home = ({ route, navigation }) => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://${ip}:3000/api/products`, {
-        params: { sortBy },
-      });
+      const response = await axios.get(
+        `${backend_url}/api/products`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          params: { sortBy },
+        },
+      );
       setProducts(response.data);
     } catch (error) {
       console.error(error);
@@ -57,9 +67,9 @@ const Home = ({ route, navigation }) => {
     }
   }
 
-  const getLocation = async () => {
+  const getLocation = async (ipAddress) => {
     try {
-      const res = await axios.get(`https://ipgeolocation.abstractapi.com/v1/?api_key=2540242ec345480ba4241bbbaea7203f&ip_address=${ipAddress}`)
+      const res = await axios.get(`https://ipgeolocation.abstractapi.com/v1/?api_key=${API_KEY}&ip_address=${ipAddress}`)
       setCity(res.data.city);
       setRegion(res.data.region);
     } catch (error) {
@@ -68,8 +78,8 @@ const Home = ({ route, navigation }) => {
   }
   useEffect(() => {
     getIp();
-    getLocation();
-  },[ipAddress,city,region])
+  },[ipAddress])
+  useEffect(() => {getLocation(ipAddress)},[ipAddress])
 
   return (
     <SafeAreaView>

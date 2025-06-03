@@ -12,7 +12,6 @@ import styles from "./favorite.style";
 import { COLORS, SIZES } from "../constants";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
 import ProductCardView from "../components/products/ProductCardView";
 import { favoriteContext } from "../contexts/favoriteContext";
 export default function Favorite() {

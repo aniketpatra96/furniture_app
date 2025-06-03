@@ -18,18 +18,21 @@ import {
 import { COLORS } from "../constants";
 import style from "./profile.style";
 import { userContext } from "../contexts/userContext";
-import { IP as ip } from "@env";
 import axios from "axios";
 import Toast from "react-native-toast-message";
-
+import { backend_url } from "../backend_url";
 
 export default function Profile({ navigation }) {
-  const { user, setUser, userLogin, setUserLogin,profile } = useContext(userContext);
+  const { user, setUser, userLogin, setUserLogin, profile, token } = useContext(userContext);
   const [profileImage, setProfileImage] = useState(null);
   console.log(profileImage);
   const fetchProfileImage = async (userId) => {
     try {
-      const response = await axios.get(`http://${ip}:3000/profile/${userId}`);
+      const response = await axios.get(`${backend_url}/profile/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.status === 200) {
         setProfileImage(response.data.avatar);
       }

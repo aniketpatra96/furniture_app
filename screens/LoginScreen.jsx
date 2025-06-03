@@ -9,63 +9,64 @@ import {
   Keyboard,
 } from "react-native";
 import axios from "axios";
-import { IP as ip } from "@env";
 import { userContext } from "../contexts/userContext";
 import Toast from 'react-native-toast-message'; // Import the Toast module
+import { backend_url } from "../backend_url"; // Import the backend URL
+import { decodeToken } from "react-jwt";
 
-const LoginScreen = ({ navigation }) => {
-  const { setUser, setUserLogin } = useContext(userContext);
+const LoginScreen = ({ navigation }) => {  
+  const { setUser, setUserLogin, setToken } = useContext(userContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const showToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Login Successful',
-      visibilityTime: 3000,
-      autoHide: true,
-    });
-  }
   const handleLogin = async () => {
-    if (validateEmail(email) && validatePassword(password)) {
-      const user = { email, password };
-      const response = await axios.post(`http://${ip}:3000/user/login`, user);
-      if (response.status === 200) {
-        const { _id, name, email } = response.data;
-        setUser({ _id, name, email, password });
-        setUserLogin(true);
-        Toast.show({
-          type: 'success',
-          text1: 'Login Successful',
-          visibilityTime: 1500,
-          autoHide: true,
-        });
-        // alert("login sccess")
-        setTimeout(() => navigation.navigate("Bottom Navigation"), 900);
-        setEmail("");
-        setPassword("");
+    try {
+      if (validateEmail(email) && validatePassword(password)) {
+        const user = { email, password };
+        const response = await axios.post(`${backend_url}/login`, user);
+        if (response.status === 200) {
+          const decodedToken = decodeToken(response.data.token);
+          const { _id, name, email } = decodedToken.user;
+          setToken(response.data.token);
+          setUser({ _id, name, email });
+          setUserLogin(true);
+          Toast.show({
+            type: 'success',
+            text1: 'Login Successful',
+            visibilityTime: 1500,
+            autoHide: true,
+          });
+          setTimeout(() => navigation.navigate("Bottom Navigation"), 900);
+          setEmail("");
+          setPassword("");
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: 'Login Failed',
+            text2: 'Invalid credentials',
+            visibilityTime: 3000,
+            autoHide: true,
+          });
+          return;
+        }
       } else {
         Toast.show({
           type: 'error',
-          text1: 'Login Failed',
+          text1: 'Invalid Email or Password',
           visibilityTime: 3000,
           autoHide: true,
         });
         return;
       }
-    } else {
+    } catch (error) {
       Toast.show({
         type: 'error',
-        text1: 'Invalid Email or Password',
+        text1: 'Login Failed',
+        text2: error.message,
         visibilityTime: 3000,
         autoHide: true,
       });
-      return;
     }
   };
-  // navigation.addListener('beforeRemove',(e) => {
-  //   console.log(e);
-  //   e.preventDefault();
-  // })
   const validateEmail = (email) => {
     const regex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -96,7 +97,7 @@ const LoginScreen = ({ navigation }) => {
           placeholder="Email ID"
           placeholderTextColor="#aaa"
           value={email}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => setEmail(text.toLowerCase())}
         />
         <TextInput
           style={styles.input}
@@ -118,7 +119,7 @@ const LoginScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.iconButton}>
           <Image
             source={{
-              uri: "https://banner2.cleanpng.com/20180423/gkw/kisspng-google-logo-logo-logo-5ade7dc753b015.9317679115245306313428.jpg",
+              uri: "https://icon2.cleanpng.com/lnd/20241121/sc/bd7ce03eb1225083f951fc01171835.webp",
             }}
             style={styles.icon}
           />
@@ -149,7 +150,7 @@ const LoginScreen = ({ navigation }) => {
           Register
         </Text>
       </Text>
-      <Toast ref={(ref) => Toast.setRef(ref)} /> 
+      <Toast />
     </View>
   );
 };

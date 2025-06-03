@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home, Search, Profile } from "../screens";
@@ -71,5 +70,3 @@ export default function BottomTabNavigation() {
     </Tab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({});
