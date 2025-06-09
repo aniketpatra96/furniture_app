@@ -6,6 +6,16 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "build": {
+      "android": {
+        "buildType": "app-bundle",
+        "image": "latest"
+      },
+      "ios": {
+        "buildType": "app-bundle",
+        "image": "latest"
+      }
+    },
     "plugins": [
       [
         "expo-image-picker",
@@ -37,9 +47,12 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "env": {
+      "GRADLE_OPTS": "--warning-mode=all"
+    },
     "extra": {
       "eas": {
-        "projectId": "66269bb4-46cb-4925-aa70-22ad44bb20d1"
+        "projectId": "1ff9b9a9-f28b-4423-b300-3fc040aa9b62"
       }
     }
   }
